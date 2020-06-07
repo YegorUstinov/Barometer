@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         float millibarsOfPressure = event.values[0];
         TextView tv = (TextView) findViewById(R.id.tv);
-        tv.setText(String.valueOf(millibarsOfPressure));
+        tv.setText("Pressure in millibars: "+String.valueOf(millibarsOfPressure));
     }
 
     @Override
