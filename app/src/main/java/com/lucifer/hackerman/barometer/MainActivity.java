@@ -25,8 +25,21 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         float millibarsOfPressure = event.values[0];
+        float mmhg = (float) (millibarsOfPressure * 0.750062);
+        float kpa = (float) (millibarsOfPressure * 0.1);
+        float psi = (float) (millibarsOfPressure * 0.0145038);
+
         TextView tv = (TextView) findViewById(R.id.tv);
-        tv.setText("Pressure in millibars: "+String.valueOf(millibarsOfPressure));
+        tv.setText("Pressure in millibars: " + String.valueOf(millibarsOfPressure));
+
+        TextView mmHg = (TextView) findViewById(R.id.mmHg);
+        mmHg.setText("Pressure in mmHg: " + String.valueOf(mmhg));
+
+        TextView kPa = (TextView) findViewById(R.id.kPa);
+        kPa.setText("Pressure in kPa: " + String.valueOf(kpa));
+
+        TextView PSI = (TextView) findViewById(R.id.PSI);
+        PSI.setText("Pressure in psi: " + String.valueOf(psi));
     }
 
     @Override
