@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor pressure;
@@ -22,24 +24,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
     }
 
+
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float millibarsOfPressure = event.values[0];
+        // float type formatter
+        DecimalFormat df = new DecimalFormat("####.#");
+
+        float millibarsOfPressure = event.values[0]; // get air pressure
+
+        // other measure units
+        float atm = (float) (millibarsOfPressure * 0.000986923);
         float mmhg = (float) (millibarsOfPressure * 0.750062);
         float kpa = (float) (millibarsOfPressure * 0.1);
         float psi = (float) (millibarsOfPressure * 0.0145038);
 
-        TextView tv = (TextView) findViewById(R.id.tv);
-        tv.setText("Pressure in millibars: " + String.valueOf(millibarsOfPressure));
+        // block below shows air pressure on screen
+        TextView millibars = (TextView) findViewById(R.id.millibars);
+        millibars.setText(String.valueOf(df.format(millibarsOfPressure)));
+
+        TextView Atmosphere = (TextView) findViewById(R.id.atm);
+        Atmosphere.setText(String.valueOf(df.format(atm)));
 
         TextView mmHg = (TextView) findViewById(R.id.mmHg);
-        mmHg.setText("Pressure in mmHg: " + String.valueOf(mmhg));
+        mmHg.setText(String.valueOf(df.format(mmhg)));
 
         TextView kPa = (TextView) findViewById(R.id.kPa);
-        kPa.setText("Pressure in kPa: " + String.valueOf(kpa));
+        kPa.setText(String.valueOf(df.format(kpa)));
 
         TextView PSI = (TextView) findViewById(R.id.PSI);
-        PSI.setText("Pressure in psi: " + String.valueOf(psi));
+        PSI.setText(String.valueOf(df.format(psi)));
     }
 
     @Override
@@ -58,4 +71,5 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
         sensorManager.unregisterListener(this);
     }
+
 }

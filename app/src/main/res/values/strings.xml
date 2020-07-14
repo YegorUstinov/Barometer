@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Barometer</string>
+    <string name="app_name">Barometer by Lucifer Hackerman</string>
+    <string name="millibars"> millibars</string>
+    <string name="atm">atm</string>
+    <string name="mmhg">mmHg</string>
+    <string name="kpa">kPa</string>
+    <string name="psi">psi</string>
 </resources>
