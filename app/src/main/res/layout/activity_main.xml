@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/almendra"
-                android:text="@string/millibars"
+                android:text="@string/null_str"
                 android:textSize="24sp" />
 
             <TextView
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/almendra"
-                android:text="@string/atm"
+                android:text="@string/null_str"
                 android:textSize="24sp" />
 
             <TextView
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/almendra"
-                android:text="@string/mmhg"
+                android:text="@string/null_str"
                 android:textSize="24sp" />
 
             <TextView
@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/almendra"
-                android:text="@string/kpa"
+                android:text="@string/null_str"
                 android:textSize="24sp" />
 
             <TextView
@@ -96,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/almendra"
-                android:text="@string/psi"
+                android:text="@string/null_str"
                 android:textSize="24sp" />
         </LinearLayout>
 

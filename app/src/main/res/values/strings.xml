@@ -5,4 +5,5 @@
     <string name="mmhg">" mmHg"</string>
     <string name="kpa">" kPa"</string>
     <string name="psi">" psi"</string>
+    <string name="null_str">"null"</string>
 </resources>
