@@ -27,28 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/almendra"
-                android:text="@string/atm"
-                android:textSize="24sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
                 android:text="@string/mmhg"
-                android:textSize="24sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/kpa"
-                android:textSize="24sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/psi"
                 android:textSize="24sp" />
 
             <TextView
@@ -75,31 +54,7 @@
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/atm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/null_str"
-                android:textSize="24sp" />
-
-            <TextView
                 android:id="@+id/mmHg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/null_str"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/kPa"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/null_str"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/PSI"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/almendra"

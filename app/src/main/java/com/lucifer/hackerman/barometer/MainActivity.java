@@ -28,33 +28,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         // float type formatter
-        DecimalFormat df = new DecimalFormat("####.#");
+        DecimalFormat df_hPa = new DecimalFormat("####.#");
+        DecimalFormat df_mmHg = new DecimalFormat("####");
         DecimalFormat df_inhg = new DecimalFormat("####.##");
 
         float millibarsOfPressure = event.values[0]; // get air pressure
 
         // other measure units
-        float atm = (float) (millibarsOfPressure * 0.000986923);
         float mmhg = (float) (millibarsOfPressure * 0.750062);
-        float kpa = (float) (millibarsOfPressure * 0.1);
-        float psi = (float) (millibarsOfPressure * 0.0145038);
         float inhg = (float) (millibarsOfPressure * 0.02953);
 
         // block below shows air pressure on screen
         TextView millibars = (TextView) findViewById(R.id.millibars);
-        millibars.setText(String.valueOf(df.format(millibarsOfPressure)));
-
-        TextView Atmosphere = (TextView) findViewById(R.id.atm);
-        Atmosphere.setText(String.valueOf(df.format(atm)));
+        millibars.setText(String.valueOf(df_hPa.format(millibarsOfPressure)));
 
         TextView mmHg = (TextView) findViewById(R.id.mmHg);
-        mmHg.setText(String.valueOf(df.format(mmhg)));
-
-        TextView kPa = (TextView) findViewById(R.id.kPa);
-        kPa.setText(String.valueOf(df.format(kpa)));
-
-        TextView PSI = (TextView) findViewById(R.id.PSI);
-        PSI.setText(String.valueOf(df.format(psi)));
+        mmHg.setText(String.valueOf(df_mmHg.format(mmhg)));
 
         TextView inHg = (TextView) findViewById(R.id.inch);
         inHg.setText(String.valueOf(df_inhg.format(inhg)));

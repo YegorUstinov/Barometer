@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name">\"BAR \'o\' METER\"</string>
     <string name="millibars">" millibars(hPa)"</string>
-    <string name="atm">" atm"</string>
     <string name="mmhg">" mmHg"</string>
-    <string name="kpa">" kPa"</string>
-    <string name="psi">" psi"</string>
     <string name="inhg">" inhg"</string>
     <string name="null_str">"null"</string>
 </resources>
