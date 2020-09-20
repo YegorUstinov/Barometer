@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onSensorChanged(SensorEvent event) {
         // float type formatter
         DecimalFormat df = new DecimalFormat("####.#");
+        DecimalFormat df_inhg = new DecimalFormat("####.##");
 
         float millibarsOfPressure = event.values[0]; // get air pressure
 
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float mmhg = (float) (millibarsOfPressure * 0.750062);
         float kpa = (float) (millibarsOfPressure * 0.1);
         float psi = (float) (millibarsOfPressure * 0.0145038);
+        float inhg = (float) (millibarsOfPressure * 0.02953);
 
         // block below shows air pressure on screen
         TextView millibars = (TextView) findViewById(R.id.millibars);
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         TextView PSI = (TextView) findViewById(R.id.PSI);
         PSI.setText(String.valueOf(df.format(psi)));
+
+        TextView inHg = (TextView) findViewById(R.id.inch);
+        inHg.setText(String.valueOf(df_inhg.format(inhg)));
     }
 
     @Override
