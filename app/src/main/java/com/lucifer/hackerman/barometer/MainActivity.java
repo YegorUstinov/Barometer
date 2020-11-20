@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
+    public void onSensorChanged(SensorEvent event
+    ) {
         // float type formatter
         DecimalFormat df_hPa = new DecimalFormat("####.#");
         DecimalFormat df_mmHg = new DecimalFormat("####");
