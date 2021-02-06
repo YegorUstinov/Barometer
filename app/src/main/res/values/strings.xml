@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">\"BAR \'o\' METER\"</string>
-    <string name="millibars">" millibars(hPa)"</string>
-    <string name="mmhg">" mmHg"</string>
-    <string name="inhg">" inhg"</string>
+    <string name="millibars">" millibars(hPa):"</string>
+    <string name="mmhg">" mmHg:"</string>
+    <string name="inhg">" inhg:"</string>
     <string name="null_str">"null"</string>
-    <string name="Altimeter">" Altimeter, m"</string>
+    <string name="Altimeter">" Altimeter:"</string>
     <string name="QNH">" METAR QNH(mBar):"</string>
 </resources>
