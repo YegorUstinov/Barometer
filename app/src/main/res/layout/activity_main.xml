@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -36,6 +37,29 @@
                 android:fontFamily="@font/almendra"
                 android:text="@string/inhg"
                 android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/almendra"
+                android:text=""
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/almendra"
+                android:text="@string/Altimeter"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/almendra"
+                android:text="@string/QNH"
+                android:textSize="24sp" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -68,6 +92,33 @@
                 android:fontFamily="@font/almendra"
                 android:text="@string/null_str"
                 android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/almendra"
+                android:text=""
+                android:textSize="24sp" />
+
+
+            <TextView
+                android:id="@+id/altimeter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/almendra"
+                android:text="@string/null_str"
+                android:textSize="24sp" />
+
+            <EditText
+                android:id="@+id/setQNH"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="1013"
+                android:inputType="number"
+                android:maxLength="4">
+
+            </EditText>
+
         </LinearLayout>
 
     </LinearLayout>

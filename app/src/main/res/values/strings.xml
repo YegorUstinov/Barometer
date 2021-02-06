@@ -4,4 +4,6 @@
     <string name="mmhg">" mmHg"</string>
     <string name="inhg">" inhg"</string>
     <string name="null_str">"null"</string>
+    <string name="Altimeter">" Altimeter, m"</string>
+    <string name="QNH">" METAR QNH(mBar):"</string>
 </resources>
