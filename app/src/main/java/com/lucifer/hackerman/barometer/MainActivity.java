@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } catch (Exception e) {
             System.out.println("input error!");
         }
-        float meters = ((millibarsOfPressure - sQNH) * 8);
+        float meters = ((sQNH - millibarsOfPressure) * 8);
 
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
         altimeter.setText(String.valueOf(df_meters.format(meters)) + " m");
