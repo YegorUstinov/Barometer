@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">\"BAR \'o\' METER\"</string>
+    <string name="app_name">\"BAR \'o\' METAR\"</string>
     <string name="millibars">" millibar(hPa):"</string>
     <string name="mmhg">" mmHg:"</string>
     <string name="inhg">" inHg:"</string>
     <string name="null_str">"null"</string>
     <string name="Altitude">" Altitude:"</string>
-    <string name="QNH">" QNH:"</string>
+    <string name="QNH">" QNH nearby airport:"</string>
     <string name="temperature">" Temperature:</string>
     <string name="pressure">"Pressure:"</string>
     <string name="Altimeter">"Altimeter"</string>
