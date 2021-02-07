@@ -11,6 +11,20 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/almendra"
+                android:text="@string/pressure"
+                android:textSize="24sp" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +66,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
                 android:orientation="vertical">
 
                 <TextView
@@ -83,7 +96,6 @@
             </LinearLayout>
 
         </LinearLayout>
-        // altimeter
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -147,16 +159,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="right"
                 android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/setQNH"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="mBar"
+                    android:fontFamily="@font/almendra"
+                    android:hint="@string/mBar"
+                    android:importantForAutofill="no"
                     android:inputType="number"
-                    android:maxLength="4"></EditText>
+                    android:maxLength="4"
+                    android:textSize="24sp"></EditText>
 
 
             </LinearLayout>
@@ -165,7 +179,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -187,7 +201,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="right"
                 android:orientation="horizontal">
 
                 <EditText
@@ -195,9 +208,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:digits="0123456789-"
-                    android:hint="celsius"
+                    android:fontFamily="@font/almendra"
+                    android:hint="@string/celsius"
+                    android:importantForAutofill="no"
                     android:inputType="number"
-                    android:maxLength="3"></EditText>
+                    android:maxLength="3"
+                    android:textSize="24sp"></EditText>
 
 
             </LinearLayout>

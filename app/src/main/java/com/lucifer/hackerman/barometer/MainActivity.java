@@ -28,31 +28,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        // float type formatter
-        DecimalFormat df_hPa = new DecimalFormat("####.#");
-        DecimalFormat df_mmHg = new DecimalFormat("####");
-        DecimalFormat df_inhg = new DecimalFormat("####.##");
-        DecimalFormat df_meters = new DecimalFormat("####");
-
-        float millibarsOfPressure = event.values[0]; // get air pressure
+        float mBar = event.values[0]; // get air pressure
         TextView millibars = (TextView) findViewById(R.id.millibars);
-        millibars.setText(String.valueOf(df_hPa.format(millibarsOfPressure)));
+        DecimalFormat df_hPa = new DecimalFormat("####.#");
+        millibars.setText(String.valueOf(df_hPa.format(mBar)));
 
         TextView mmHg = (TextView) findViewById(R.id.mmHg);
-        float mmhg = (float) (millibarsOfPressure * 0.750062);
+        float mmhg = (float) (mBar * 0.750062);
+        DecimalFormat df_mmHg = new DecimalFormat("###");
         mmHg.setText(String.valueOf(df_mmHg.format(mmhg)));
 
         TextView inHg = (TextView) findViewById(R.id.inch);
-        float inhg = (float) (millibarsOfPressure * 0.02953);
+        float inhg = (float) (mBar * 0.02953);
+        DecimalFormat df_inhg = new DecimalFormat("##.##");
         inHg.setText(String.valueOf(df_inhg.format(inhg)));
 
+        // getting QNH
         EditText setQNH = (EditText) findViewById(R.id.setQNH);
         String QNH = setQNH.getText().toString();
-
-        EditText temp = (EditText) findViewById(R.id.temperature);
-        String t = temp.getText().toString();
-
-        // getting qnh
         float meanSeaLevelOfPressure = 0;
         try {
             Float qnh = Float.valueOf(QNH);
@@ -62,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
         // getting temperature
+        EditText temp = (EditText) findViewById(R.id.temperature);
+        String t = temp.getText().toString();
         float temperature = 0;
         try {
             Float tmp = Float.valueOf(t);
@@ -70,10 +65,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             System.out.println("input error!");
         }
 
-        float pressure = millibarsOfPressure;
+        float pressure = mBar;
+        // barometric formula
         float altitude = (float) ((8000 / pressure) * (1 + (0.00366 * temperature))) * (meanSeaLevelOfPressure - pressure);
 
+        // show altitude
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
+        DecimalFormat df_meters = new DecimalFormat("####");
         altimeter.setText(String.valueOf(df_meters.format(altitude)) + " m");
     }
 
