@@ -8,118 +8,200 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/millibars"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/mmhg"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/inhg"
+                    android:textSize="24sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/millibars"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/null_str"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/mmHg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/null_str"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/inch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/null_str"
+                    android:textSize="24sp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+        // altimeter
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/millibars"
-                android:textSize="24sp" />
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/Altitude"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/mmhg"
-                android:textSize="24sp" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:id="@+id/altimeter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/null_str"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/QNH"
+                    android:textSize="24sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/inhg"
-                android:textSize="24sp" />
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text=""
-                android:textSize="24sp" />
+                <EditText
+                    android:id="@+id/setQNH"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="mBar"
+                    android:inputType="number"
+                    android:maxLength="4"></EditText>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/Altimeter"
-                android:textSize="24sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/QNH"
-                android:textSize="24sp" />
-
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="right"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/millibars"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/almendra"
+                    android:text="@string/temperature"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/null_str"
-                android:textSize="24sp" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/mmHg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/null_str"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/inch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/null_str"
-                android:textSize="24sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text=""
-                android:textSize="24sp" />
+                <EditText
+                    android:id="@+id/temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="0123456789-"
+                    android:hint="celsius"
+                    android:inputType="number"
+                    android:maxLength="3"></EditText>
 
 
-            <TextView
-                android:id="@+id/altimeter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/almendra"
-                android:text="@string/null_str"
-                android:textSize="24sp" />
-
-            <EditText
-                android:id="@+id/setQNH"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="1013"
-                android:inputType="number"
-                android:maxLength="4">
-
-            </EditText>
+            </LinearLayout>
 
         </LinearLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

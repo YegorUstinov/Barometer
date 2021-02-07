@@ -48,17 +48,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         EditText setQNH = (EditText) findViewById(R.id.setQNH);
         String QNH = setQNH.getText().toString();
-        float sQNH = 0;
+
+        EditText temp = (EditText) findViewById(R.id.temperature);
+        String t = temp.getText().toString();
+
+        // getting qnh
+        float meanSeaLevelOfPressure = 0;
         try {
             Float qnh = Float.valueOf(QNH);
-            sQNH = qnh;
+            meanSeaLevelOfPressure = qnh;
         } catch (Exception e) {
             System.out.println("input error!");
         }
-        float meters = (float) ((sQNH - millibarsOfPressure) * 7.8);
+
+        // getting temperature
+        float temperature = 0;
+        try {
+            Float tmp = Float.valueOf(t);
+            temperature = tmp;
+        } catch (Exception e) {
+            System.out.println("input error!");
+        }
+
+        float pressure = millibarsOfPressure;
+        float altitude = (float) ((8000 / pressure) * (1 + (0.00366 * temperature))) * (meanSeaLevelOfPressure - pressure);
 
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
-        altimeter.setText(String.valueOf(df_meters.format(meters)) + " m");
+        altimeter.setText(String.valueOf(df_meters.format(altitude)) + " m");
     }
 
     @Override
