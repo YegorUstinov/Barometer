@@ -74,9 +74,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         DecimalFormat df_meters = new DecimalFormat("#####");
         altimeter.setText(String.valueOf(df_meters.format(altitude)) + " m");
 
-        TextView altimeterft = (TextView) findViewById(R.id.altimeterft);
+        TextView altimeterInFoot = (TextView) findViewById(R.id.altimeterft);
+        double footSize = 3.28084;
         DecimalFormat df_ft = new DecimalFormat("#####");
-        altimeterft.setText(String.valueOf(df_ft.format(altitude * 3.28084)) + " ft");
+        altimeterInFoot.setText(String.valueOf(df_ft.format(altitude * footSize)) + " ft");
     }
 
     @Override
