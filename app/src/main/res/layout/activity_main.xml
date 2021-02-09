@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:keepScreenOn="true"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -128,9 +129,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -188,6 +189,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/almendra"
                     android:text="@string/QNH"
+                    android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textSize="24sp"
                     android:textStyle="italic" />
@@ -210,6 +212,7 @@
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="4"
+                    android:textAlignment="center"
                     android:textSize="24sp"></EditText>
 
 
@@ -234,6 +237,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/almendra"
                     android:text="@string/temperature"
+                    android:textAlignment="center"
                     android:textSize="24sp"
                     android:textStyle="italic" />
 
@@ -254,6 +258,7 @@
                     android:importantForAutofill="no"
                     android:inputType="number"
                     android:maxLength="3"
+                    android:textAlignment="center"
                     android:textSize="24sp"></EditText>
 
 
