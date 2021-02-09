@@ -28,15 +28,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         double mBar = event.values[0]; // get air pressure
+        // show pressure in millibars
         TextView millibars = (TextView) findViewById(R.id.millibars);
-        DecimalFormat df_hPa = new DecimalFormat("####.#");
+        DecimalFormat df_hPa = new DecimalFormat("####");
         millibars.setText(String.valueOf(df_hPa.format(mBar)));
 
+        // show pressure in mm
         TextView mmHg = (TextView) findViewById(R.id.mmHg);
         double mmhg = (mBar * 0.750062);
         DecimalFormat df_mmHg = new DecimalFormat("###");
         mmHg.setText(String.valueOf(df_mmHg.format(mmhg)));
 
+        // show pressure in inches
         TextView inHg = (TextView) findViewById(R.id.inch);
         double inhg = (mBar * 0.02953);
         DecimalFormat df_inhg = new DecimalFormat("##.##");
