@@ -28,27 +28,27 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float mBar = event.values[0]; // get air pressure
+        double mBar = event.values[0]; // get air pressure
         TextView millibars = (TextView) findViewById(R.id.millibars);
         DecimalFormat df_hPa = new DecimalFormat("####.#");
         millibars.setText(String.valueOf(df_hPa.format(mBar)));
 
         TextView mmHg = (TextView) findViewById(R.id.mmHg);
-        float mmhg = (float) (mBar * 0.750062);
+        double mmhg = (mBar * 0.750062);
         DecimalFormat df_mmHg = new DecimalFormat("###");
         mmHg.setText(String.valueOf(df_mmHg.format(mmhg)));
 
         TextView inHg = (TextView) findViewById(R.id.inch);
-        float inhg = (float) (mBar * 0.02953);
+        double inhg = (mBar * 0.02953);
         DecimalFormat df_inhg = new DecimalFormat("##.##");
         inHg.setText(String.valueOf(df_inhg.format(inhg)));
 
         // getting QNH
         EditText setQNH = (EditText) findViewById(R.id.setQNH);
         String QNH = setQNH.getText().toString();
-        float meanSeaLevelOfPressure = 0;
+        double meanSeaLevelOfPressure = 0;
         try {
-            Float qnh = Float.valueOf(QNH);
+            Double qnh = Double.valueOf(QNH);
             meanSeaLevelOfPressure = qnh;
         } catch (Exception e) {
             System.out.println("input error!");
@@ -57,22 +57,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // getting temperature
         EditText temp = (EditText) findViewById(R.id.temperature);
         String t = temp.getText().toString();
-        float temperature = 0;
+        double temperature = 0;
         try {
-            Float tmp = Float.valueOf(t);
+            Double tmp = Double.valueOf(t);
             temperature = tmp;
         } catch (Exception e) {
             System.out.println("input error!");
         }
 
-        float pressure = mBar;
+        double pressure = mBar;
         // barometric formula
-        float altitude = (float) ((8000 / pressure) * (1 + (0.00366 * temperature))) * (meanSeaLevelOfPressure - pressure);
+        double altitude = ((8000 / pressure) * (1 + (0.00366 * temperature))) * (meanSeaLevelOfPressure - pressure);
 
         // show altitude
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
-        DecimalFormat df_meters = new DecimalFormat("####");
+        DecimalFormat df_meters = new DecimalFormat("######");
         altimeter.setText(String.valueOf(df_meters.format(altitude)) + " m");
+
+        TextView altimeterft = (TextView) findViewById(R.id.altimeterft);
+        DecimalFormat df_ft = new DecimalFormat("######");
+        altimeterft.setText(String.valueOf(df_ft.format(altitude * 3.28084)) + " ft");
     }
 
     @Override

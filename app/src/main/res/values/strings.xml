@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">\"BAR \'o\' METAR\"</string>
+    <string name="app_name">Altimeter &amp; Barometer</string>
     <string name="millibars">" millibar(hPa):"</string>
     <string name="mmhg">" mmHg:"</string>
     <string name="inhg">" inHg:"</string>
