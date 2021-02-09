@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
     }
 
-
     @Override
     public void onSensorChanged(SensorEvent event) {
         double mBar = event.values[0]; // get air pressure
@@ -82,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 
     @Override
@@ -96,5 +94,4 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
         sensorManager.unregisterListener(this);
     }
-
 }
