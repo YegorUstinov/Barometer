@@ -71,11 +71,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // show altitude
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
-        DecimalFormat df_meters = new DecimalFormat("######");
+        DecimalFormat df_meters = new DecimalFormat("#####");
         altimeter.setText(String.valueOf(df_meters.format(altitude)) + " m");
 
         TextView altimeterft = (TextView) findViewById(R.id.altimeterft);
-        DecimalFormat df_ft = new DecimalFormat("######");
+        DecimalFormat df_ft = new DecimalFormat("#####");
         altimeterft.setText(String.valueOf(df_ft.format(altitude * 3.28084)) + " ft");
     }
 
