@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lucifer.hackerman.barometer"
-    android:versionCode="3"
-    android:versionName="0.3">
+    package="com.lucifer.hackerman.barometer">
 
     <uses-feature
         android:name="android.hardware.sensor.barometer"
