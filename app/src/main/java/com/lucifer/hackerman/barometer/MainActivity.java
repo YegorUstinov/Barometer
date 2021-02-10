@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         double mBar = event.values[0]; // get air pressure
         // show pressure in millibars
         TextView millibars = (TextView) findViewById(R.id.millibars);
-        DecimalFormat df_hPa = new DecimalFormat("####");
+        final DecimalFormat df_hPa = new DecimalFormat("####.#");
         millibars.setText(String.valueOf(df_hPa.format(mBar)));
 
         // show pressure in mm
@@ -44,19 +45,62 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // show pressure in inches
         TextView inHg = (TextView) findViewById(R.id.inch);
         double inhg = (mBar * 0.02953);
-        DecimalFormat df_inhg = new DecimalFormat("##.##");
+        final DecimalFormat df_inhg = new DecimalFormat("##.##");
         inHg.setText(String.valueOf(df_inhg.format(inhg)));
 
         // getting QNH
-        EditText setQNH = (EditText) findViewById(R.id.setQNH);
+        final EditText setQNH = (EditText) findViewById(R.id.setQNH);
+        final EditText setQNHinch = (EditText) findViewById(R.id.setQNHinch);
         String QNH = setQNH.getText().toString();
-        double meanSeaLevelOfPressure = 0;
+        String QNHinch = setQNHinch.getText().toString();
+
+        double meanSeaLevelPressure = 0;
         try {
             Double qnh = Double.valueOf(QNH);
-            meanSeaLevelOfPressure = qnh;
+            meanSeaLevelPressure = qnh;
         } catch (Exception e) {
             System.out.println("input error!");
         }
+
+        double meanSeaLevelPressureInch = 0;
+        try {
+            Double qnhinch = Double.valueOf(QNHinch);
+            meanSeaLevelPressureInch = qnhinch / 0.02953;
+        } catch (Exception e) {
+            System.out.println("input error!");
+        }
+
+        // checking focus
+        final double finalMeanSeaLevelPressure = meanSeaLevelPressure;
+        setQNH.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setQNHinch.setText(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)));
+            }
+        });
+
+
+        setQNH.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                setQNHinch.setText(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)));
+            }
+        });
+        final double finalMeanSeaLevelPressureInch = meanSeaLevelPressureInch;
+        setQNHinch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setQNH.setText(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)));
+            }
+        });
+
+
+        setQNHinch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                setQNH.setText(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)));
+            }
+        });
 
         // getting temperature
         EditText temp = (EditText) findViewById(R.id.temperature);
@@ -69,9 +113,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             System.out.println("input error!");
         }
 
+        //getting altitude
         double pressure = mBar;
-        // barometric formula
-        double altitude = ((8000 / pressure) * (1 + (0.00366 * temperature))) * (meanSeaLevelOfPressure - pressure);
+        double altitude = 0;
+        if (setQNH.getText().length() > 0) {
+            // barometric formula
+            altitude = ((8000 / pressure) * (1 + (0.00366 * temperature))) * (meanSeaLevelPressure - pressure);
+        } else if (setQNHinch.getText().length() > 0) {
+            altitude = ((8000 / pressure) * (1 + (0.00366 * temperature))) * (meanSeaLevelPressureInch - pressure);
+        }
 
         // show altitude
         TextView altimeter = (TextView) findViewById(R.id.altimeter);

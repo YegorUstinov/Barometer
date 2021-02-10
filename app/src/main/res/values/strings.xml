@@ -11,4 +11,6 @@
     <string name="Altimeter">"Altimeter"</string>
     <string name="celsius">"celsius"</string>
     <string name="mBar">"mBar"</string>
+    <string name="or">"or"</string>
+    <string name="inchhg">" inchHg"</string>
 </resources>
