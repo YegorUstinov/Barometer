@@ -291,18 +291,62 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/temperature"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:digits="0123456789-"
-                    android:fontFamily="@font/almendra"
-                    android:hint="@string/celsius"
-                    android:importantForAutofill="no"
-                    android:inputType="number"
-                    android:maxLength="3"
-                    android:textAlignment="center"
-                    android:textSize="24sp"></EditText>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/temperature"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789-"
+                        android:fontFamily="@font/almendra"
+                        android:hint="@string/celsius"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:textAlignment="center"
+                        android:textSize="24sp"></EditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/almendra"
+                        android:text="@string/or"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textSize="24sp"
+                        android:textStyle="italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/temperatureFahrenheit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789-"
+                        android:fontFamily="@font/almendra"
+                        android:hint="@string/fahrenheit"
+                        android:importantForAutofill="no"
+                        android:inputType="number"
+                        android:maxLength="3"
+                        android:textAlignment="center"
+                        android:textSize="24sp"></EditText>
+                </LinearLayout>
 
 
             </LinearLayout>

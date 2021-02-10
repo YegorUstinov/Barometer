@@ -75,43 +75,88 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setQNH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setQNHinch.setText(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)));
+                setQNHinch.setText("");
+                setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " inHg");
             }
         });
-
 
         setQNH.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                setQNHinch.setText(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)));
+                setQNHinch.setText("");
+                setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " inHg");
             }
         });
         final double finalMeanSeaLevelPressureInch = meanSeaLevelPressureInch;
         setQNHinch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setQNH.setText(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)));
+                setQNH.setText("");
+                setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)) + " hPa");
             }
         });
-
 
         setQNHinch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                setQNH.setText(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)));
+                setQNH.setText("");
+                setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)) + " hPa");
             }
         });
 
         // getting temperature
-        EditText temp = (EditText) findViewById(R.id.temperature);
+        final EditText temp = (EditText) findViewById(R.id.temperature);
+        final EditText tempFahrenheit = (EditText) findViewById(R.id.temperatureFahrenheit);
+        String tFahrenheit = tempFahrenheit.getText().toString();
         String t = temp.getText().toString();
+        final DecimalFormat df_temp = new DecimalFormat("###");
         double temperature = 0;
+        double temperatureFahrenheit = 0;
         try {
             Double tmp = Double.valueOf(t);
             temperature = tmp;
         } catch (Exception e) {
             System.out.println("input error!");
         }
+        try {
+            Double tmp = Double.valueOf(tFahrenheit);
+            temperatureFahrenheit = tmp;
+            temperature = (temperatureFahrenheit - 32) * 5 / 9;
+        } catch (Exception e) {
+            System.out.println("input error!");
+        }
+        final double finalTemperature = (temperature * 9 / 5) + 32;
+        temp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tempFahrenheit.setText("");
+                tempFahrenheit.setHint(String.valueOf(df_temp.format(finalTemperature)) + " °F");
+            }
+        });
+
+        temp.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                tempFahrenheit.setText("");
+                tempFahrenheit.setHint(String.valueOf(df_temp.format(finalTemperature)) + " °F");
+            }
+        });
+
+        final double finalTemperatureFahrenheit = (temperatureFahrenheit - 32) * 5 / 9;
+        tempFahrenheit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                temp.setText("");
+                temp.setHint(String.valueOf(df_temp.format(finalTemperatureFahrenheit)) + " °C");
+            }
+        });
+        tempFahrenheit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                temp.setText("");
+                temp.setHint(String.valueOf(df_temp.format(finalTemperatureFahrenheit)) + " °C");
+            }
+        });
 
         //getting altitude
         double pressure = mBar;
