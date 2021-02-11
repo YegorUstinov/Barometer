@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/almendra</item>
-        <item>@font/architects_daughter</item>
-        <item>@font/indie_flower</item>
-        <item>@font/lobster</item>
-        <item>@font/lovers_quarrel</item>
-        <item>@font/roboto</item>
-        <item>@font/roboto_mono_thin</item>
-        <item>@font/stalinist_one</item>
     </array>
 </resources>
