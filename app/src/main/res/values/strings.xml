@@ -8,9 +8,9 @@
     <string name="QNH">"Pressure (Altimeter) QNH:"</string>
     <string name="temperature">"Outside Temperature:</string>
     <string name="pressure">"Air Pressure:"</string>
-    <string name="celsius">"-18 °C"</string>
-    <string name="mBar">"0 hPa"</string>
+    <string name="celsius">"°C"</string>
+    <string name="mBar">"hPa"</string>
     <string name="or">"or"</string>
-    <string name="inchhg">"0 in Hg"</string>
-    <string name="fahrenheit">"32 °F"</string>
+    <string name="inchhg">"in Hg"</string>
+    <string name="fahrenheit">"°F"</string>
 </resources>

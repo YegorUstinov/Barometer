@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         String tFahrenheit = tempFahrenheit.getText().toString();
         String t = temp.getText().toString();
 
-        final DecimalFormat df_temp = new DecimalFormat("###");
+        final DecimalFormat df_temp = new DecimalFormat("##.#");
 
         double temperature = 0;
         try {
@@ -133,10 +133,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-        temp.setHint(String.valueOf(df_temp.format(finalTemperatureFahrenheit)) + " °C");
-        tempFahrenheit.setHint(String.valueOf(df_temp.format(finalTemperature)) + " °F");
-        setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " inHg");
-        setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)) + " hPa");
+        if (temp.getText().length() > 0 || tempFahrenheit.getText().length() > 0) {
+            temp.setHint(String.valueOf(df_temp.format(finalTemperatureFahrenheit)) + " °C");
+            tempFahrenheit.setHint(String.valueOf(df_temp.format(finalTemperature)) + " °F");
+
+        } else {
+            temp.setHint("°C");
+            tempFahrenheit.setHint("°F");
+        }
+        if (setQNH.getText().length() > 0 || setQNHinch.getText().length() > 0) {
+            setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " inHg");
+            setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)) + " hPa");
+        } else {
+            setQNHinch.setHint("inHg");
+            setQNH.setHint("hPa");
+        }
+
 
         //getting altitude
         double pressure = mBar;
