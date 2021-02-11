@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // getting QNH
         final EditText setQNH = (EditText) findViewById(R.id.setQNH);
         final EditText setQNHinch = (EditText) findViewById(R.id.setQNHinch);
+
         String QNH = setQNH.getText().toString();
         String QNHinch = setQNHinch.getText().toString();
 
@@ -70,54 +71,24 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             System.out.println("input error!");
         }
 
-        // checking focus
-        final double finalMeanSeaLevelPressure = meanSeaLevelPressure;
-        setQNH.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setQNHinch.setText("");
-                setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " inHg");
-            }
-        });
-
-        setQNH.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setQNHinch.setText("");
-                setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " inHg");
-            }
-        });
-        final double finalMeanSeaLevelPressureInch = meanSeaLevelPressureInch;
-        setQNHinch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setQNH.setText("");
-                setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)) + " hPa");
-            }
-        });
-
-        setQNHinch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                setQNH.setText("");
-                setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)) + " hPa");
-            }
-        });
-
         // getting temperature
         final EditText temp = (EditText) findViewById(R.id.temperature);
         final EditText tempFahrenheit = (EditText) findViewById(R.id.temperatureFahrenheit);
+
         String tFahrenheit = tempFahrenheit.getText().toString();
         String t = temp.getText().toString();
+
         final DecimalFormat df_temp = new DecimalFormat("###");
+
         double temperature = 0;
-        double temperatureFahrenheit = 0;
         try {
             Double tmp = Double.valueOf(t);
             temperature = tmp;
         } catch (Exception e) {
             System.out.println("input error!");
         }
+
+        double temperatureFahrenheit = 0;
         try {
             Double tmp = Double.valueOf(tFahrenheit);
             temperatureFahrenheit = tmp;
@@ -125,38 +96,47 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } catch (Exception e) {
             System.out.println("input error!");
         }
+
+        // checking focus
         final double finalTemperature = (temperature * 9 / 5) + 32;
-        temp.setOnClickListener(new View.OnClickListener() {
+        final double finalTemperatureFahrenheit = (temperatureFahrenheit - 32) * 5 / 9;
+        final double finalMeanSeaLevelPressure = meanSeaLevelPressure;
+        final double finalMeanSeaLevelPressureInch = meanSeaLevelPressureInch;
+
+        // focus pressure
+        setQNH.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View v) {
-                tempFahrenheit.setText("");
-                tempFahrenheit.setHint(String.valueOf(df_temp.format(finalTemperature)) + " °F");
+            public void onFocusChange(View v, boolean hasFocus) {
+                setQNHinch.setText("");
             }
         });
 
+        setQNHinch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                setQNH.setText("");
+            }
+        });
+
+        // focus temp
         temp.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 tempFahrenheit.setText("");
-                tempFahrenheit.setHint(String.valueOf(df_temp.format(finalTemperature)) + " °F");
             }
         });
 
-        final double finalTemperatureFahrenheit = (temperatureFahrenheit - 32) * 5 / 9;
-        tempFahrenheit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                temp.setText("");
-                temp.setHint(String.valueOf(df_temp.format(finalTemperatureFahrenheit)) + " °C");
-            }
-        });
         tempFahrenheit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 temp.setText("");
-                temp.setHint(String.valueOf(df_temp.format(finalTemperatureFahrenheit)) + " °C");
             }
         });
+
+        temp.setHint(String.valueOf(df_temp.format(finalTemperatureFahrenheit)) + " °C");
+        tempFahrenheit.setHint(String.valueOf(df_temp.format(finalTemperature)) + " °F");
+        setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " inHg");
+        setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)) + " hPa");
 
         //getting altitude
         double pressure = mBar;
