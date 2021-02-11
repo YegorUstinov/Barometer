@@ -7,8 +7,8 @@ android {
         applicationId "com.lucifer.hackerman.barometer"
         minSdkVersion 28
         targetSdkVersion 29
-        versionCode 2
-        versionName "1.2.6.0"
+        versionCode 1
+        versionName "1.12"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Altimeter &amp; Barometer</string>
-    <string name="millibars">" millibar(hPa):"</string>
-    <string name="mmhg">" mmHg:"</string>
-    <string name="inhg">" inHg:"</string>
+    <string name="millibars">" hPa(mb):"</string>
+    <string name="mmhg">" mm Hg:"</string>
+    <string name="inhg">" in Hg:"</string>
     <string name="null_str">"null"</string>
     <string name="Altitude">"Altitude:"</string>
     <string name="QNH">"Pressure (Altimeter) QNH:"</string>
@@ -11,6 +11,6 @@
     <string name="celsius">"-18 °C"</string>
     <string name="mBar">"0 hPa"</string>
     <string name="or">"or"</string>
-    <string name="inchhg">"0 inHg"</string>
+    <string name="inchhg">"0 in Hg"</string>
     <string name="fahrenheit">"32 °F"</string>
 </resources>
