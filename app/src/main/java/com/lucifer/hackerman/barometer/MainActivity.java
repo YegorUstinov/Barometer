@@ -142,10 +142,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             tempFahrenheit.setHint("°F");
         }
         if (setQNH.getText().length() > 0 || setQNHinch.getText().length() > 0) {
-            setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " inHg");
+            setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " in Hg");
             setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)) + " hPa");
         } else {
-            setQNHinch.setHint("inHg");
+            setQNHinch.setHint("in Hg");
             setQNH.setHint("hPa");
         }
 

@@ -36,9 +36,9 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
@@ -46,6 +46,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lobster"
                     android:text="@string/millibars"
+                    android:textAlignment="center"
                     android:textSize="24sp" />
 
                 <TextView
@@ -53,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lobster"
                     android:text="@string/mmhg"
+                    android:textAlignment="center"
                     android:textSize="24sp" />
 
                 <TextView
@@ -60,13 +62,14 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lobster"
                     android:text="@string/inhg"
+                    android:textAlignment="center"
                     android:textSize="24sp" />
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -77,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lobster"
                     android:text="@string/null_str"
-                    android:textAlignment="viewStart"
+                    android:textAlignment="center"
                     android:textSize="24sp"
                     android:textStyle="bold|italic" />
 
@@ -87,6 +90,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lobster"
                     android:text="@string/null_str"
+                    android:textAlignment="center"
                     android:textSize="24sp"
                     android:textStyle="bold|italic" />
 
@@ -96,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lobster"
                     android:text="@string/null_str"
+                    android:textAlignment="center"
                     android:textSize="24sp"
                     android:textStyle="bold|italic" />
 
@@ -147,7 +152,7 @@
                         android:fontFamily="@font/lobster"
                         android:text="@string/null_str"
                         android:textAlignment="center"
-                        android:textSize="24sp"
+                        android:textSize="36sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
 
@@ -166,7 +171,7 @@
                         android:fontFamily="@font/lobster"
                         android:text="@string/null_str"
                         android:textAlignment="center"
-                        android:textSize="24sp"
+                        android:textSize="36sp"
                         android:textStyle="bold|italic" />
                 </LinearLayout>
             </LinearLayout>

@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Altimeter &amp; Barometer</string>
-    <string name="millibars">" hPa(mb):"</string>
-    <string name="mmhg">" mm Hg:"</string>
-    <string name="inhg">" in Hg:"</string>
+    <string name="millibars">"hPa(mb):"</string>
+    <string name="mmhg">"mm Hg:"</string>
+    <string name="inhg">"in Hg:"</string>
     <string name="null_str">"null"</string>
     <string name="Altitude">"Altitude:"</string>
     <string name="QNH">"Pressure (Altimeter) QNH:"</string>
