@@ -153,11 +153,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //getting altitude
         double pressure = mBar;
         double altitude = 0;
+        double altitudeTemp = 0;
+        // temporary altitude
         if (setQNH.getText().length() > 0) {
-            // barometric formula
-            altitude = 18400 * (1 + 0.00366 * temperature) * Math.log10(meanSeaLevelPressure / pressure);
+            altitudeTemp = (8000 / pressure) * (meanSeaLevelPressure - pressure);
         } else if (setQNHinch.getText().length() > 0) {
-            altitude = 18400 * (1 + 0.00366 * temperature) * Math.log10(meanSeaLevelPressureInch / pressure);
+            altitudeTemp = (8000 / pressure) * (meanSeaLevelPressureInch - pressure);
+        }
+        double gasExpansionFactor = 0.00367;
+        double meanTemperatureOfAirColumn = temperature + (3 * altitudeTemp) / 1000;
+        // barometric stage
+        if (setQNH.getText().length() > 0) {
+            altitude = 18400 * (1 + gasExpansionFactor * meanTemperatureOfAirColumn) * Math.log10(meanSeaLevelPressure / pressure);
+        } else if (setQNHinch.getText().length() > 0) {
+            altitude = 18400 * (1 + gasExpansionFactor * meanTemperatureOfAirColumn) * Math.log10(meanSeaLevelPressureInch / pressure);
         }
 
         // show altitude
