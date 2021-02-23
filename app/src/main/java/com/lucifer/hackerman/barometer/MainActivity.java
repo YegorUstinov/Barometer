@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         double meanSeaLevelPressureInch = 0;
         try {
             Double qnhinch = Double.valueOf(QNHinch);
-            meanSeaLevelPressureInch = qnhinch / 0.02953;
+            meanSeaLevelPressureInch = qnhinch;
         } catch (Exception e) {
             System.out.println("input error!");
         }
@@ -80,10 +80,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         final DecimalFormat df_temp = new DecimalFormat("##.#");
 
-        double temperature = 0;
+        double temperatureAtStation = 0;
         try {
             Double tmp = Double.valueOf(t);
-            temperature = tmp;
+            temperatureAtStation = tmp;
         } catch (Exception e) {
             System.out.println("input error!");
         }
@@ -92,13 +92,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         try {
             Double tmp = Double.valueOf(tFahrenheit);
             temperatureFahrenheit = tmp;
-            temperature = (temperatureFahrenheit - 32) * 5 / 9;
+            temperatureAtStation = (temperatureFahrenheit - 32) * 5 / 9;
         } catch (Exception e) {
             System.out.println("input error!");
         }
 
         // checking focus
-        final double finalTemperature = (temperature * 9 / 5) + 32;
+        final double finalTemperature = (temperatureAtStation * 9 / 5) + 32;
         final double finalTemperatureFahrenheit = (temperatureFahrenheit - 32) * 5 / 9;
         final double finalMeanSeaLevelPressure = meanSeaLevelPressure;
         final double finalMeanSeaLevelPressureInch = meanSeaLevelPressureInch;
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
         if (setQNH.getText().length() > 0 || setQNHinch.getText().length() > 0) {
             setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " in Hg");
-            setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch)) + " hPa");
+            setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch / 0.02953)) + " hPa");
         } else {
             setQNHinch.setHint("in Hg");
             setQNH.setHint("hPa");
@@ -151,22 +151,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         //getting altitude
-        double pressure = mBar;
+        double pressureAtStationLevel = mBar;
+        double pressureAtStationLevelInInchHg = inhg;
+        int hypsometricConstant = 18400;
         double altitude = 0;
-        double altitudeTemp = 0;
-        // temporary altitude
+        double temporaryStationElevation = 0;
+        double coefficientOfExpansion = 0.00367;
+        double meanTemperatureOfAirColumn = temperatureAtStation + (3 * temporaryStationElevation) / 1000; // this is formula
+
+        // temporary altitude (using Laplace shortened formula)
+        int tempForMeasurement = 0;
         if (setQNH.getText().length() > 0) {
-            altitudeTemp = (8000 / pressure) * (meanSeaLevelPressure - pressure);
+            temporaryStationElevation = hypsometricConstant *
+                    (1 + coefficientOfExpansion * tempForMeasurement) *
+                    Math.log10(meanSeaLevelPressure / pressureAtStationLevel);
         } else if (setQNHinch.getText().length() > 0) {
-            altitudeTemp = (8000 / pressure) * (meanSeaLevelPressureInch - pressure);
+            temporaryStationElevation = hypsometricConstant *
+                    (1 + coefficientOfExpansion * tempForMeasurement) *
+                    Math.log10(meanSeaLevelPressureInch / pressureAtStationLevelInInchHg);
         }
-        double gasExpansionFactor = 0.00367;
-        double meanTemperatureOfAirColumn = temperature + (3 * altitudeTemp) / 1000;
-        // barometric stage
+
+        // accuracy altitude (using Laplace shortened formula)
         if (setQNH.getText().length() > 0) {
-            altitude = 18400 * (1 + gasExpansionFactor * meanTemperatureOfAirColumn) * Math.log10(meanSeaLevelPressure / pressure);
+            altitude = hypsometricConstant *
+                    (1 + coefficientOfExpansion * meanTemperatureOfAirColumn) *
+                    Math.log10(meanSeaLevelPressure / pressureAtStationLevel);
         } else if (setQNHinch.getText().length() > 0) {
-            altitude = 18400 * (1 + gasExpansionFactor * meanTemperatureOfAirColumn) * Math.log10(meanSeaLevelPressureInch / pressure);
+            altitude = hypsometricConstant *
+                    (1 + coefficientOfExpansion * meanTemperatureOfAirColumn) *
+                    Math.log10(meanSeaLevelPressureInch / pressureAtStationLevelInInchHg);
         }
 
         // show altitude
