@@ -157,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         double altitude = 0;
         double temporaryStationElevation = 0;
         double coefficientOfExpansion = 0.00367;
-        double meanTemperatureOfAirColumn = temperatureAtStation + (3 * temporaryStationElevation) / 1000; // this is formula
 
         // temporary altitude (using Laplace shortened formula)
         int tempForMeasurement = 0;
@@ -170,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     (1 + coefficientOfExpansion * tempForMeasurement) *
                     Math.log10(meanSeaLevelPressureInch / pressureAtStationLevelInInchHg);
         }
+        double meanTemperatureOfAirColumn = temperatureAtStation + (3 * temporaryStationElevation) / 1000;
 
         // accuracy altitude (using Laplace shortened formula)
         if (setQNH.getText().length() > 0) {
