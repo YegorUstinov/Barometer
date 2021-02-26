@@ -9,8 +9,9 @@
     <string name="temperature">"Temp(default = 0 °C(32 °F)):</string>
     <string name="pressure">"Air Pressure:"</string>
     <string name="celsius">"°C"</string>
-    <string name="mBar">"hPa"</string>
+    <string name="mBar">"1013.3 hPa"</string>
     <string name="or">"or"</string>
-    <string name="inchhg">"in Hg"</string>
+    <string name="inchhg">"29.92 in Hg"</string>
     <string name="fahrenheit">"°F"</string>
+    <string name="barometerCalibrationValue">"Barometer calibration hPa"</string>
 </resources>

@@ -31,6 +31,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     public void onSensorChanged(SensorEvent event) {
         double mBar = event.values[0]; // get air pressure
+        //mBar = mBar - 3.3; //barometer calibration
+        EditText editBarometerCalibration = (EditText) findViewById(R.id.barometerCalibration);
+        String barometerCalibrationString = editBarometerCalibration.getText().toString();
+        try {
+            double barCal = Double.valueOf(barometerCalibrationString);
+            mBar = mBar + barCal;
+        } catch (Exception e) {
+            System.out.println("calibration value error!");
+        }
         // show pressure in millibars
         TextView millibars = (TextView) findViewById(R.id.millibars);
         final DecimalFormat df_hPa = new DecimalFormat("####.#");
@@ -145,8 +154,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             setQNHinch.setHint(String.valueOf(df_inhg.format(finalMeanSeaLevelPressure * 0.02953)) + " in Hg");
             setQNH.setHint(String.valueOf(df_hPa.format(finalMeanSeaLevelPressureInch / 0.02953)) + " hPa");
         } else {
-            setQNHinch.setHint("in Hg");
-            setQNH.setHint("hPa");
+            setQNHinch.setHint("29.92 in Hg");
+            setQNH.setHint("1013.3 hPa");
         }
 
 
