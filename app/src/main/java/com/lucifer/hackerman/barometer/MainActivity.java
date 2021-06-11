@@ -30,30 +30,28 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        double mBar = event.values[0]; // get air pressure
-        //mBar = mBar - 3.3; //barometer calibration
+        float mBar = event.values[0]; // get air pressure
         EditText editBarometerCalibration = (EditText) findViewById(R.id.barometerCalibration);
         String barometerCalibrationString = editBarometerCalibration.getText().toString();
         try {
-            double barCal = Double.valueOf(barometerCalibrationString);
+            float barCal = Float.valueOf(barometerCalibrationString);
             mBar = mBar + barCal;
         } catch (Exception e) {
             System.out.println("calibration value error!");
         }
         // show pressure in millibars
+        int millibarsToShow = (int) mBar;
         TextView millibars = (TextView) findViewById(R.id.millibars);
-        final DecimalFormat df_hPa = new DecimalFormat("####.#");
-        millibars.setText(String.valueOf(df_hPa.format(mBar)));
+        millibars.setText(String.valueOf(millibarsToShow));
 
         // show pressure in mm
         TextView mmHg = (TextView) findViewById(R.id.mmHg);
-        double mmhg = (mBar * 0.750062);
-        DecimalFormat df_mmHg = new DecimalFormat("###");
-        mmHg.setText(String.valueOf(df_mmHg.format(mmhg)));
+        int mmhg = (int) (mBar * 0.750062);
+        mmHg.setText(String.valueOf(mmhg));
 
         // show pressure in inches
         TextView inHg = (TextView) findViewById(R.id.inch);
-        double inhg = (mBar * 0.02953);
+        float inhg = (float) (mBar * 0.02953);
         final DecimalFormat df_inhg = new DecimalFormat("##.##");
         inHg.setText(String.valueOf(df_inhg.format(inhg)));
 
@@ -64,17 +62,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         String QNH = setQNH.getText().toString();
         String QNHinch = setQNHinch.getText().toString();
 
-        double meanSeaLevelPressure = 0;
+        float meanSeaLevelPressure = 0;
         try {
-            Double qnh = Double.valueOf(QNH);
+            Float qnh = Float.valueOf(QNH);
             meanSeaLevelPressure = qnh;
         } catch (Exception e) {
             System.out.println("input error!");
         }
 
-        double meanSeaLevelPressureInch = 0;
+        float meanSeaLevelPressureInch = 0;
         try {
-            Double qnhinch = Double.valueOf(QNHinch);
+            Float qnhinch = Float.valueOf(QNHinch);
             meanSeaLevelPressureInch = qnhinch;
         } catch (Exception e) {
             System.out.println("input error!");
@@ -89,17 +87,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         final DecimalFormat df_temp = new DecimalFormat("##.#");
 
-        double temperatureAtStation = 0;
+        float temperatureAtStation = 0;
         try {
-            Double tmp = Double.valueOf(t);
+            Float tmp = Float.valueOf(t);
             temperatureAtStation = tmp;
         } catch (Exception e) {
             System.out.println("input error!");
         }
 
-        double temperatureFahrenheit = 0;
+        float temperatureFahrenheit = 0;
         try {
-            Double tmp = Double.valueOf(tFahrenheit);
+            Float tmp = Float.valueOf(tFahrenheit);
             temperatureFahrenheit = tmp;
             temperatureAtStation = (temperatureFahrenheit - 32) * 5 / 9;
         } catch (Exception e) {
@@ -107,10 +105,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
         // checking focus
-        final double finalTemperature = (temperatureAtStation * 9 / 5) + 32;
-        final double finalTemperatureFahrenheit = (temperatureFahrenheit - 32) * 5 / 9;
-        final double finalMeanSeaLevelPressure = meanSeaLevelPressure;
-        final double finalMeanSeaLevelPressureInch = meanSeaLevelPressureInch;
+        final float finalTemperature = (temperatureAtStation * 9 / 5) + 32;
+        final float finalTemperatureFahrenheit = (temperatureFahrenheit - 32) * 5 / 9;
+        final float finalMeanSeaLevelPressure = meanSeaLevelPressure;
+        final float finalMeanSeaLevelPressureInch = meanSeaLevelPressureInch;
 
         // focus pressure
         setQNH.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -142,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
+        final DecimalFormat df_hPa = new DecimalFormat("####.#");
         if (temp.getText().length() > 0 || tempFahrenheit.getText().length() > 0) {
             temp.setHint(String.valueOf(df_temp.format(finalTemperatureFahrenheit)) + " °C");
             tempFahrenheit.setHint(String.valueOf(df_temp.format(finalTemperature)) + " °F");
@@ -160,46 +159,46 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         //getting altitude
-        double pressureAtStationLevel = mBar;
-        double pressureAtStationLevelInInchHg = inhg;
+        float pressureAtStationLevel = mBar;
+        float pressureAtStationLevelInInchHg = inhg;
         int hypsometricConstant = 18400;
-        double altitude = 0;
-        double temporaryStationElevation = 0;
-        double coefficientOfExpansion = 0.00367;
+        float altitude = 0;
+        float temporaryStationElevation = 0;
+        double coefficientOfExpansion = (float) 0.00367;
 
         // temporary altitude (using Laplace shortened formula)
         int tempForMeasurement = 0;
         if (setQNH.getText().length() > 0) {
-            temporaryStationElevation = hypsometricConstant *
+            temporaryStationElevation = (float) (hypsometricConstant *
                     (1 + coefficientOfExpansion * tempForMeasurement) *
-                    Math.log10(meanSeaLevelPressure / pressureAtStationLevel);
+                    Math.log10(meanSeaLevelPressure / pressureAtStationLevel));
         } else if (setQNHinch.getText().length() > 0) {
-            temporaryStationElevation = hypsometricConstant *
+            temporaryStationElevation = (float) (hypsometricConstant *
                     (1 + coefficientOfExpansion * tempForMeasurement) *
-                    Math.log10(meanSeaLevelPressureInch / pressureAtStationLevelInInchHg);
+                    Math.log10(meanSeaLevelPressureInch / pressureAtStationLevelInInchHg));
         }
         double meanTemperatureOfAirColumn = temperatureAtStation + (3 * temporaryStationElevation) / 1000;
 
         // accuracy altitude (using Laplace shortened formula)
         if (setQNH.getText().length() > 0) {
-            altitude = hypsometricConstant *
+            altitude = (float) (hypsometricConstant *
                     (1 + coefficientOfExpansion * meanTemperatureOfAirColumn) *
-                    Math.log10(meanSeaLevelPressure / pressureAtStationLevel);
+                    Math.log10(meanSeaLevelPressure / pressureAtStationLevel));
         } else if (setQNHinch.getText().length() > 0) {
-            altitude = hypsometricConstant *
+            altitude = (float) (hypsometricConstant *
                     (1 + coefficientOfExpansion * meanTemperatureOfAirColumn) *
-                    Math.log10(meanSeaLevelPressureInch / pressureAtStationLevelInInchHg);
+                    Math.log10(meanSeaLevelPressureInch / pressureAtStationLevelInInchHg));
         }
 
         // show altitude
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
-        DecimalFormat df_meters = new DecimalFormat("#####");
-        altimeter.setText(String.valueOf(df_meters.format(altitude)) + " m");
-
+        int altitudeToShow = (int) altitude;
+        altimeter.setText(String.valueOf(altitudeToShow) + " m");
+        // show in ft
         TextView altimeterInFoot = (TextView) findViewById(R.id.altimeterft);
         double footSize = 3.28084;
-        DecimalFormat df_ft = new DecimalFormat("#####");
-        altimeterInFoot.setText(String.valueOf(df_ft.format(altitude * footSize)) + " ft");
+        int altitudeInFootToShow = (int) (altitude * footSize);
+        altimeterInFoot.setText(String.valueOf(altitudeInFootToShow) + " ft");
     }
 
     @Override
