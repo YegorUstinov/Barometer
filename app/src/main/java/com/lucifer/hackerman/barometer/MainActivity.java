@@ -1,6 +1,7 @@
 package com.lucifer.hackerman.barometer;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -18,6 +19,17 @@ import java.text.DecimalFormat;
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
     private Sensor pressure;
+    final String SAVED_CALIBRATION = "SAVED_CALIBRATION";
+    final String SAVED_QNH = "SAVED_QNH";
+    final String SAVED_QNH_INCH = "SAVED_QNH_INCH";
+    final String SAVED_TEMP = "SAVED_TEMP";
+    final String SAVED_TEMP_FAHRENHEIT = "SAVED_FAHRENHEIT";
+    SharedPreferences preferences;
+    EditText editBarometerCalibration;
+    EditText setQNH;
+    EditText setQNHinch;
+    EditText temp;
+    EditText tempFahrenheit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +38,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
+        editBarometerCalibration = (EditText) findViewById(R.id.barometerCalibration);
+        setQNH = (EditText) findViewById(R.id.setQNH);
+        setQNHinch = (EditText) findViewById(R.id.setQNHinch);
+        temp = (EditText) findViewById(R.id.temperature);
+        tempFahrenheit = (EditText) findViewById(R.id.temperatureFahrenheit);
+        loadEditorState();
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         float mBar = event.values[0]; // get air pressure
-        EditText editBarometerCalibration = (EditText) findViewById(R.id.barometerCalibration);
         String barometerCalibrationString = editBarometerCalibration.getText().toString();
         try {
             float barCal = Float.valueOf(barometerCalibrationString);
@@ -56,9 +73,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         inHg.setText(String.valueOf(df_inhg.format(inhg)));
 
         // getting QNH
-        final EditText setQNH = (EditText) findViewById(R.id.setQNH);
-        final EditText setQNHinch = (EditText) findViewById(R.id.setQNHinch);
-
         String QNH = setQNH.getText().toString();
         String QNHinch = setQNHinch.getText().toString();
 
@@ -79,9 +93,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
         // getting temperature
-        final EditText temp = (EditText) findViewById(R.id.temperature);
-        final EditText tempFahrenheit = (EditText) findViewById(R.id.temperatureFahrenheit);
-
         String tFahrenheit = tempFahrenheit.getText().toString();
         String t = temp.getText().toString();
 
@@ -205,6 +216,31 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
+    void saveEditorState() {
+        preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(SAVED_CALIBRATION, editBarometerCalibration.getText().toString());
+        editor.putString(SAVED_QNH, setQNH.getText().toString());
+        editor.putString(SAVED_QNH_INCH, setQNHinch.getText().toString());
+        editor.putString(SAVED_TEMP, temp.getText().toString());
+        editor.putString(SAVED_TEMP_FAHRENHEIT, tempFahrenheit.getText().toString());
+        editor.commit();
+    }
+
+    void loadEditorState() {
+        preferences = getPreferences(MODE_PRIVATE);
+        String savedCalibration = preferences.getString(SAVED_CALIBRATION, "");
+        String savedQNH = preferences.getString(SAVED_QNH, "");
+        String savedQNHinch = preferences.getString(SAVED_QNH_INCH, "");
+        String savedTemperature = preferences.getString(SAVED_TEMP, "");
+        String savedTemperatureFahrenheit = preferences.getString(SAVED_TEMP_FAHRENHEIT, "");
+        editBarometerCalibration.setText(savedCalibration);
+        setQNH.setText(savedQNH);
+        setQNHinch.setText(savedQNHinch);
+        temp.setText(savedTemperature);
+        tempFahrenheit.setText(savedTemperatureFahrenheit);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -215,5 +251,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveEditorState();
     }
 }
