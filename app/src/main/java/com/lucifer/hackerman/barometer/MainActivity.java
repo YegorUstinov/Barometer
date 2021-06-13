@@ -43,12 +43,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setQNHinch = (EditText) findViewById(R.id.setQNHinch);
         temp = (EditText) findViewById(R.id.temperature);
         tempFahrenheit = (EditText) findViewById(R.id.temperatureFahrenheit);
-        loadEditorState();
+        loadEditTextsState();
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float mBar = event.values[0]; // get air pressure
+        float milliBar = event.values[0]; // get air pressure
+        //aliasing data from device
+        DecimalFormat decimalFormatFor_mBar = new DecimalFormat("####.##");
+        float mBar = Float.parseFloat(decimalFormatFor_mBar.format(milliBar));
+
+        //barometer calibration
         String barometerCalibrationString = editBarometerCalibration.getText().toString();
         try {
             float barCal = Float.valueOf(barometerCalibrationString);
@@ -56,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         } catch (Exception e) {
             System.out.println("calibration value error!");
         }
+
         // show pressure in millibars
         int millibarsToShow = (int) mBar;
         TextView millibars = (TextView) findViewById(R.id.millibars);
@@ -70,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         TextView inHg = (TextView) findViewById(R.id.inch);
         float inhg = (float) (mBar * 0.02953);
         final DecimalFormat df_inhg = new DecimalFormat("##.##");
+        inhg = Float.parseFloat(df_inhg.format(inhg));
         inHg.setText(String.valueOf(df_inhg.format(inhg)));
 
         // getting QNH
@@ -201,11 +208,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     Math.log10(meanSeaLevelPressureInch / pressureAtStationLevelInInchHg));
         }
 
-        // show altitude
+        // show altitude in meter
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
         int altitudeToShow = (int) altitude;
         altimeter.setText(String.valueOf(altitudeToShow) + " m");
-        // show in ft
+        // show in foot
         TextView altimeterInFoot = (TextView) findViewById(R.id.altimeterft);
         double footSize = 3.28084;
         int altitudeInFootToShow = (int) (altitude * footSize);
@@ -216,7 +223,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    void saveEditorState() {
+    // saving editTexts contains, calls in onDestroy()
+    void saveEditTextsState() {
         preferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(SAVED_CALIBRATION, editBarometerCalibration.getText().toString());
@@ -227,7 +235,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         editor.commit();
     }
 
-    void loadEditorState() {
+    // load data before destroying and push it to editTexts, calls in onCreate()
+    void loadEditTextsState() {
         preferences = getPreferences(MODE_PRIVATE);
         String savedCalibration = preferences.getString(SAVED_CALIBRATION, "");
         String savedQNH = preferences.getString(SAVED_QNH, "");
@@ -256,6 +265,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        saveEditorState();
+        saveEditTextsState();
     }
 }
