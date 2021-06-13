@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //barometer calibration
         String barometerCalibrationString = editBarometerCalibration.getText().toString();
         try {
-            float barCal = Float.valueOf(barometerCalibrationString);
+            Float barCal = Float.valueOf(barometerCalibrationString);
             mBar = mBar + barCal;
         } catch (Exception e) {
             System.out.println("calibration value error!");
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         float inhg = (float) (mBar * 0.02953);
         final DecimalFormat df_inhg = new DecimalFormat("##.##");
         inhg = Float.parseFloat(df_inhg.format(inhg));
-        inHg.setText(String.valueOf(df_inhg.format(inhg)));
+        inHg.setText(String.valueOf(inhg));
 
         // getting QNH
         String QNH = setQNH.getText().toString();
