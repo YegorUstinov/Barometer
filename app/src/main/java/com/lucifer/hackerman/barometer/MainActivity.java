@@ -238,7 +238,6 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(SAVED_QNH_INCH, setQNHinch.getText().toString());
         editor.putString(SAVED_TEMP, temp.getText().toString());
         editor.putString(SAVED_TEMP_FAHRENHEIT, tempFahrenheit.getText().toString());
-        editor.putFloat("press", pressValue[0]);
         editor.commit();
     }
 
@@ -256,17 +255,6 @@ public class MainActivity extends AppCompatActivity {
         setQNHinch.setText(savedQNHinch);
         temp.setText(savedTemperature);
         tempFahrenheit.setText(savedTemperatureFahrenheit);
-        pressValue[0] = savedPress;
-    }
-
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putFloat("press", pressValue[0]);
-    }
-
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        pressValue[0] = savedInstanceState.getFloat("press");
     }
 
     @Override
