@@ -249,7 +249,6 @@ public class MainActivity extends AppCompatActivity {
         String savedQNHinch = preferences.getString(SAVED_QNH_INCH, "");
         String savedTemperature = preferences.getString(SAVED_TEMP, "");
         String savedTemperatureFahrenheit = preferences.getString(SAVED_TEMP_FAHRENHEIT, "");
-        Float savedPress = preferences.getFloat("press", 0);
         editBarometerCalibration.setText(savedCalibration);
         setQNH.setText(savedQNH);
         setQNHinch.setText(savedQNHinch);
