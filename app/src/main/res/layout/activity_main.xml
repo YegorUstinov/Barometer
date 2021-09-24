@@ -34,10 +34,8 @@
         android:textAlignment="viewStart"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/barometerCalibration"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/barometerCalibration"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -53,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/barometerCalibration"
-        app:layout_constraintTop_toBottomOf="@+id/barometerCalibration"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -70,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="@+id/barometerCalibration"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inch"
+        app:layout_constraintTop_toBottomOf="@+id/barometerCalibration"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -87,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="@+id/barometerCalibration"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barometerCalibration"
+        app:layout_constraintTop_toBottomOf="@+id/millibars"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
@@ -124,9 +122,9 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/barometerCalibration"
-        app:layout_constraintStart_toStartOf="@+id/barometerCalibration"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
