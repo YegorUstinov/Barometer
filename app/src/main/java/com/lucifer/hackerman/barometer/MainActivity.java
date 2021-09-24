@@ -79,12 +79,6 @@ public class MainActivity extends AppCompatActivity {
         DecimalFormat df_mBar = new DecimalFormat("####.#");
         millibars.setText(String.valueOf(df_mBar.format(mBar)));
 
-        // show pressure in mm
-        TextView mmHg = (TextView) findViewById(R.id.mmHg);
-        double mmhg = mBar * 0.750062;
-        DecimalFormat df_mmHg = new DecimalFormat("###.#");
-        mmHg.setText(String.valueOf(df_mmHg.format(mmhg)));
-
         // show pressure in inches
         TextView inHg = (TextView) findViewById(R.id.inch);
         double inhg = (mBar * 0.02953);

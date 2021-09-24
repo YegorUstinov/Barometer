@@ -1,17 +1,16 @@
 <resources>
     <string name="app_name">Altimeter &amp; Barometer</string>
-    <string name="millibars">"hPa(mb):"</string>
-    <string name="mmhg">"mm Hg:"</string>
-    <string name="inhg">"in Hg:"</string>
-    <string name="null_str">"null"</string>
-    <string name="Altitude">"Altitude:"</string>
-    <string name="QNH">"Pressure (Altimeter) QNH:"</string>
-    <string name="temperature">"Temp(default = 0 °C(32 °F)):</string>
-    <string name="pressure">"Air Pressure:"</string>
-    <string name="celsius">"°C"</string>
-    <string name="mBar">"1013.3 hPa"</string>
-    <string name="or">"or"</string>
-    <string name="inchhg">"29.92 in Hg"</string>
-    <string name="fahrenheit">"°F"</string>
-    <string name="barometerCalibrationValue">"Barometer calibration hPa"</string>
+    <string name="millibars">hPa(mb)</string>
+    <string name="inhg">in Hg</string>
+    <string name="null_str">null</string>
+    <string name="Altitude">Altitude</string>
+    <string name="QNH">QNH</string>
+    <string name="temperature">Temp</string>
+    <string name="pressure">Air Pressure</string>
+    <string name="celsius">°C</string>
+    <string name="mBar">1013.2 hPa</string>
+    <string name="or">or</string>
+    <string name="inchhg">29.92 in Hg</string>
+    <string name="fahrenheit">°F</string>
+    <string name="barometerCalibrationValue">Barometer calibration</string>
 </resources>

@@ -1,381 +1,308 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lobster"
-                android:text="@string/pressure"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lobster"
+        android:text="@string/pressure"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/millibars"
+        android:textAlignment="viewStart"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/barometerCalibration"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/inhg"
+        android:textAlignment="viewStart"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/barometerCalibration"
+        app:layout_constraintTop_toBottomOf="@+id/barometerCalibration"
+        app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lobster"
-                    android:text="@string/millibars"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+    <TextView
+        android:id="@+id/millibars"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/null_str"
+        android:textAlignment="viewStart"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/barometerCalibration"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inch"
+        app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lobster"
-                    android:text="@string/mmhg"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+    <TextView
+        android:id="@+id/inch"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/null_str"
+        android:textAlignment="viewStart"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/barometerCalibration"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barometerCalibration"
+        app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lobster"
-                    android:text="@string/inhg"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+    <EditText
+        android:id="@+id/barometerCalibration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:digits="0123456789-."
+        android:fontFamily="@font/lobster"
+        android:hint="@string/barometerCalibrationValue"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:maxLength="4"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextContrastCheck">
 
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/millibars"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lobster"
-                    android:text="@string/null_str"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold|italic" />
-
-                <TextView
-                    android:id="@+id/mmHg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lobster"
-                    android:text="@string/null_str"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold|italic" />
-
-                <TextView
-                    android:id="@+id/inch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lobster"
-                    android:text="@string/null_str"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold|italic" />
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/barometerCalibration"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:digits="0123456789-."
-                android:fontFamily="@font/lobster"
-                android:hint="@string/barometerCalibrationValue"
-                android:importantForAutofill="no"
-                android:inputType="number"
-                android:maxLength="4"
-                android:textAlignment="center"
-                android:textSize="24sp"></EditText>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lobster"
-                    android:text="@string/Altitude"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/altimeter"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lobster"
-                        android:text="@string/null_str"
-                        android:textAlignment="center"
-                        android:textSize="36sp"
-                        android:textStyle="bold|italic" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
+    </EditText>
 
 
-                    <TextView
-                        android:id="@+id/altimeterft"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/lobster"
-                        android:text="@string/null_str"
-                        android:textAlignment="center"
-                        android:textSize="36sp"
-                        android:textStyle="bold|italic" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/Altitude"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/barometerCalibration"
+        app:layout_constraintStart_toStartOf="@+id/barometerCalibration"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+    <TextView
+        android:id="@+id/altimeter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/null_str"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.0" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:orientation="vertical">
+    <TextView
+        android:id="@+id/altimeterft"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/null_str"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lobster"
-                    android:text="@string/QNH"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textSize="24sp"
-                    android:textStyle="italic" />
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/QNH"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/setQNH"
+        app:layout_constraintStart_toStartOf="@+id/setQNH"
+        app:layout_constraintTop_toBottomOf="@+id/altimeter"
+        app:layout_constraintVertical_bias="0.0" />
 
-            </LinearLayout>
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/QNH"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/setQNHinch"
+        app:layout_constraintStart_toStartOf="@+id/setQNHinch"
+        app:layout_constraintTop_toBottomOf="@+id/altimeterft"
+        app:layout_constraintVertical_bias="0.0" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+    <EditText
+        android:id="@+id/setQNH"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:hint="@string/mBar"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:maxLength="6"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/altimeter"
+        app:layout_constraintStart_toStartOf="@+id/altimeter"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextContrastCheck"></EditText>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+    <EditText
+        android:id="@+id/setQNHinch"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:hint="@string/inchhg"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/altimeterft"
+        app:layout_constraintStart_toStartOf="@+id/altimeterft"
+        app:layout_constraintTop_toBottomOf="@+id/textView16"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextContrastCheck"></EditText>
 
-                    <EditText
-                        android:id="@+id/setQNH"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:digits="0123456789."
-                        android:fontFamily="@font/lobster"
-                        android:hint="@string/mBar"
-                        android:importantForAutofill="no"
-                        android:inputType="number"
-                        android:maxLength="6"
-                        android:textAlignment="center"
-                        android:textSize="24sp"></EditText>
-                </LinearLayout>
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/temperature"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/setQNHinch"
+        app:layout_constraintStart_toStartOf="@+id/setQNHinch"
+        app:layout_constraintTop_toBottomOf="@+id/setQNHinch"
+        app:layout_constraintVertical_bias="0.0" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.5"
-                    android:orientation="vertical">
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/temperature"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/setQNH"
+        app:layout_constraintStart_toStartOf="@+id/setQNH"
+        app:layout_constraintTop_toBottomOf="@+id/setQNH"
+        app:layout_constraintVertical_bias="0.0" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/lobster"
-                        android:text="@string/or"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textSize="24sp"
-                        android:textStyle="italic" />
-                </LinearLayout>
+    <EditText
+        android:id="@+id/temperature"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:hint="@string/celsius"
+        android:importantForAutofill="no"
+        android:inputType="numberSigned"
+        android:maxLength="3"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView11"
+        app:layout_constraintStart_toStartOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextContrastCheck"></EditText>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+    <EditText
+        android:id="@+id/temperatureFahrenheit"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:hint="@string/fahrenheit"
+        android:importantForAutofill="no"
+        android:inputType="numberSigned"
+        android:maxLength="3"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextContrastCheck"></EditText>
 
-                    <EditText
-                        android:id="@+id/setQNHinch"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:digits="0123456789."
-                        android:fontFamily="@font/lobster"
-                        android:hint="@string/inchhg"
-                        android:importantForAutofill="no"
-                        android:inputType="number"
-                        android:maxLength="5"
-                        android:textAlignment="center"
-                        android:textSize="24sp"></EditText>
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lobster"
-                    android:text="@string/temperature"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="italic" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/temperature"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789-"
-                        android:fontFamily="@font/lobster"
-                        android:hint="@string/celsius"
-                        android:importantForAutofill="no"
-                        android:inputType="number"
-                        android:maxLength="3"
-                        android:textAlignment="center"
-                        android:textSize="24sp"></EditText>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1.5"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/lobster"
-                        android:text="@string/or"
-                        android:textAlignment="center"
-                        android:textAllCaps="false"
-                        android:textSize="24sp"
-                        android:textStyle="italic" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/temperatureFahrenheit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:digits="0123456789-"
-                        android:fontFamily="@font/lobster"
-                        android:hint="@string/fahrenheit"
-                        android:importantForAutofill="no"
-                        android:inputType="number"
-                        android:maxLength="3"
-                        android:textAlignment="center"
-                        android:textSize="24sp"></EditText>
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
