@@ -9,6 +9,22 @@
 
 
     <TextView
+        android:id="@+id/speed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lobster"
+        android:text="@string/null_str"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/setQNHinch"
+        app:layout_constraintStart_toEndOf="@+id/setQNH"
+        app:layout_constraintTop_toBottomOf="@+id/setQNH"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -3,14 +3,11 @@
     <string name="millibars">hPa(mb)</string>
     <string name="inhg">in Hg</string>
     <string name="null_str">null</string>
-    <string name="Altitude">Altitude</string>
+    <string name="Altitude">Altitude and Speed</string>
     <string name="QNH">QNH</string>
-    <string name="temperature">Temp</string>
     <string name="pressure">Air Pressure</string>
-    <string name="celsius">°C</string>
     <string name="mBar">1013.2 hPa</string>
-    <string name="or">or</string>
     <string name="inchhg">29.92 in Hg</string>
-    <string name="fahrenheit">°F</string>
     <string name="barometerCalibrationValue">Barometer calibration</string>
+    <string name="speed">0km/h</string>
 </resources>

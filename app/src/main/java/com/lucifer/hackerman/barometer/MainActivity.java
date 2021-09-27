@@ -1,17 +1,24 @@
 package com.lucifer.hackerman.barometer;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.text.DecimalFormat;
 
@@ -39,6 +46,63 @@ public class MainActivity extends AppCompatActivity {
         setQNH = (EditText) findViewById(R.id.setQNH);
         setQNHinch = (EditText) findViewById(R.id.setQNHinch);
         loadEditTextsState();
+
+        // Location
+        LocationManager locationManager;
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            return;
+        }
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        criteria.setAltitudeRequired(true);
+        criteria.setBearingRequired(true);
+        criteria.setSpeedRequired(true);
+        criteria.setCostAllowed(true);
+        String provider = locationManager.getBestProvider(criteria, true);
+
+        Location l = locationManager.getLastKnownLocation(provider);
+        updateWithNewLocation(l);
+
+        locationManager.requestLocationUpdates(provider, 1000, 1, myLocationListener);
+    }
+
+    private LocationListener myLocationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            updateWithNewLocation(location);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
+
+    private void updateWithNewLocation(Location location) {
+        TextView speedTV = (TextView) findViewById(R.id.speed);
+        if (location != null) {
+            double latitude = location.getLatitude();
+            double longtitude = location.getLongitude();
+            double altitude = location.getAltitude();
+            float speed = location.getSpeed();
+            DecimalFormat df = new DecimalFormat("###");
+            speedTV.setText(String.valueOf(df.format(speed)));
+        }
+
     }
 
     private final SensorEventListener sensorEventListener = new SensorEventListener() {
