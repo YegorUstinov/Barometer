@@ -95,12 +95,9 @@ public class MainActivity extends AppCompatActivity {
     private void updateWithNewLocation(Location location) {
         TextView speedTV = (TextView) findViewById(R.id.speed);
         if (location != null) {
-            double latitude = location.getLatitude();
-            double longtitude = location.getLongitude();
-            double altitude = location.getAltitude();
             float speed = location.getSpeed();
             DecimalFormat df = new DecimalFormat("###");
-            speedTV.setText(String.valueOf(df.format(speed)));
+            speedTV.setText(String.valueOf(df.format(speed * 3.6) + " km/h"));
         }
 
     }
