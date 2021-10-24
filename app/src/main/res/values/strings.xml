@@ -1,17 +1,12 @@
 <resources>
     <string name="app_name">Altimeter &amp; Barometer</string>
     <string name="millibars">hPa</string>
-    <string name="inhg">in Hg</string>
     <string name="null_str">null</string>
     <string name="Altitude">Altitude</string>
     <string name="QNH">QNH</string>
-    <string name="pressure">Air Pressure</string>
-    <string name="mBar">1013.25 hPa</string>
-    <string name="inchhg">29.92 inHg</string>
-    <string name="barometerCalibrationValue">Barometer calibration</string>
+    <string name="pressure">Barometer</string>
+    <string name="mBar">pressure</string>
+    <string name="barometerCalibrationValue">Calibration</string>
     <string name="speed">Speed</string>
-    <string name="feetText">ft</string>
     <string name="meterText">m</string>
-    <string name="Knots">Knots</string>
-    <string name="kilometers">km/h</string>
 </resources>

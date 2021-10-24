@@ -13,6 +13,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -113,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     speedTV.setText(df.format(speed * 2.23694f) + " mph");
                     break;
                 case 3:
-                    speedTV.setText(df.format(speed * 1.94384f) + " knots");
+                    speedTV.setText(df.format(speed * 1.94384f) + " kts");
                     break;
                 default:
                     break;
@@ -176,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
                 if (setQNH.getText().length() > 0)
                     altitude = SensorManager.getAltitude(meanSeaLevelPressure, mBar);
                 currentPressure.setText(df_mBar.format(mBar) + " hPa");
+                setQNH.setHint("hPa");
+                editBarometerCalibration.setHint("Calibration hPa");
                 break;
             case (2):
                 // show pressure in inchHg
@@ -183,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
                 if (setQNH.getText().length() > 0)
                     altitude = SensorManager.getAltitude(meanSeaLevelPressure, inhg);
                 currentPressure.setText(df_inHg.format(inhg) + " inHg");
+                setQNH.setHint("inHg");
+                editBarometerCalibration.setHint("Calibration inHg");
                 break;
             case (3):
                 // show pressure in mmHg
@@ -190,6 +196,8 @@ public class MainActivity extends AppCompatActivity {
                 if (setQNH.getText().length() > 0)
                     altitude = SensorManager.getAltitude(meanSeaLevelPressure, mmhg);
                 currentPressure.setText(df_mmHg.format(mmhg) + " mmHg");
+                setQNH.setHint("mmHg");
+                editBarometerCalibration.setHint("Calibration mmHg");
             default:
                 break;
         }
@@ -252,6 +260,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickAltitude(View view) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.EFFECT_TICK));
         if (altitudeChoice) {
             altitudeChoice = false;
         } else {
@@ -260,6 +270,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCurrentPressure(View view) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.EFFECT_TICK));
         pressureMeasureChoice++;
         if (pressureMeasureChoice > 3)
             pressureMeasureChoice = 1;
@@ -329,6 +341,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickSpeed(View view) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.EFFECT_TICK));
         speedChoice++;
         if (speedChoice > 3)
             speedChoice = 1;
