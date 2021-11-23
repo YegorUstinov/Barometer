@@ -104,18 +104,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateWithNewLocation(Location location) {
         TextView speedTV = (TextView) findViewById(R.id.speed);
+        TextView speedText = (TextView) findViewById(R.id.speedText);
         if (location != null) {
             float speed = location.getSpeed();
             DecimalFormat df = new DecimalFormat("###");
             switch (speedChoice) {
                 case 1:
-                    speedTV.setText(df.format(speed * 3.6f) + " km/h");
+                    speedText.setText("Speed, km/h");
+                    speedTV.setText(df.format(speed * 3.6f));
                     break;
                 case 2:
-                    speedTV.setText(df.format(speed * 2.23694f) + " mph");
+                    speedText.setText("Speed, mph");
+                    speedTV.setText(df.format(speed * 2.23694f));
                     break;
                 case 3:
-                    speedTV.setText(df.format(speed * 1.94384f) + " kts");
+                    speedText.setText("Speed, kts");
+                    speedTV.setText(df.format(speed * 1.94384f));
                     break;
                 default:
                     break;
@@ -167,9 +171,10 @@ public class MainActivity extends AppCompatActivity {
         DecimalFormat df_altitude = new DecimalFormat("######");
         DecimalFormat df_mBar = new DecimalFormat("####.#");
         DecimalFormat df_inHg = new DecimalFormat("##.##");
-        DecimalFormat df_mmHg = new DecimalFormat("###");
+        DecimalFormat df_mmHg = new DecimalFormat("###.#");
         TextView currentPressure = (TextView) findViewById(R.id.currentPressure);
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
+        TextView altitudeText = (TextView) findViewById(R.id.altitudeText);
 
         switch (pressureMeasureChoice) {
             case (1):
@@ -205,11 +210,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (altitudeChoice) {
             // show altitude in meter
-            altimeter.setText(df_altitude.format(altitude) + " m");
+            altitudeText.setText("Altitude, m");
+            altimeter.setText(df_altitude.format(altitude));
         } else {
             // show in foot
+            altitudeText.setText("Altitude, ft");
             float footSize = 3.28084f;
-            altimeter.setText(df_altitude.format(altitude * footSize) + " ft");
+            altimeter.setText(df_altitude.format(altitude * footSize));
         }
     }
 
@@ -250,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        saveEditTextsState();
         sensorManager.unregisterListener(sensorEventListener);
     }
 
@@ -292,7 +300,6 @@ public class MainActivity extends AppCompatActivity {
                     editBarometerCalibration.setText(setPascal);
                     break;
                 case 2:
-
                     barCal = barCal * 0.02953f;
                     String setInch = Float.toString(Float.parseFloat(df_calibration.format(barCal)));
                     editBarometerCalibration.setText(setInch);
@@ -315,24 +322,24 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 System.out.println("input error!");
             }
-            DecimalFormat df_qnh = new DecimalFormat("####.##");
+            DecimalFormat df_qnh_inch = new DecimalFormat("##.##");
+            DecimalFormat df_qnh_hPa = new DecimalFormat("####");
+            DecimalFormat df_qnh_mm = new DecimalFormat("###.#");
             switch (pressureMeasureChoice) {
                 case 1:
                     qnh = qnh * 1.33322f;
-                    String setPascal = Float.toString(Float.parseFloat(df_qnh.format(qnh)));
+                    String setPascal = Float.toString(Float.parseFloat(df_qnh_hPa.format(qnh)));
                     setQNH.setText(setPascal);
                     break;
                 case 2:
                     qnh = qnh * 0.02953f;
-                    String setInch = Float.toString(Float.parseFloat(df_qnh.format(qnh)));
+                    String setInch = Float.toString(Float.parseFloat(df_qnh_inch.format(qnh)));
                     setQNH.setText(setInch);
-
                     break;
                 case 3:
                     qnh = qnh * 25.4f;
-                    String setMillimetre = Float.toString(Float.parseFloat(df_qnh.format(qnh)));
+                    String setMillimetre = Float.toString(Float.parseFloat(df_qnh_mm.format(qnh)));
                     setQNH.setText(setMillimetre);
-
                     break;
                 default:
                     break;
