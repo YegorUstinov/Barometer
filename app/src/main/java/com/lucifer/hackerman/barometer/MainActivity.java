@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean altitudeChoice = true;
     private int pressureMeasureChoice = 1;
     private int speedChoice = 1;
-    private String barometerCalibrationString = "";
-    String QNH = "";
+    float calibrator = 0.0f;
+    float meanSeaLevelPressure = 1013.25f;
+    double gpsAlt = 0.0;
 
     final String SAVED_CALIBRATION = "SAVED_CALIBRATION";
     final String SAVED_QNH = "SAVED_QNH";
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
     final String SAVED_ALTITUDE_CHOICE = "SAVED_ALTITUDE_CHOICE";
     final String SAVED_SPEED_CHOICE = "SAVED_SPEED_CHOICE";
     SharedPreferences preferences;
-    EditText editBarometerCalibration;
-    EditText setQNH;
+    TextView editBarometerCalibration;
+    TextView setQNH;
     TextView mBars;
 
     @Override
@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         mBars = (TextView) findViewById(R.id.currentPressure);
-        editBarometerCalibration = (EditText) findViewById(R.id.barometerCalibration);
-        setQNH = (EditText) findViewById(R.id.setQNH);
+        editBarometerCalibration = (TextView) findViewById(R.id.barometerCalibration);
+        setQNH = (TextView) findViewById(R.id.setQNH);
         loadEditTextsState();
 
         // Location
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         TextView speedText = (TextView) findViewById(R.id.speedText);
         if (location != null) {
             float speed = location.getSpeed();
+            gpsAlt = location.getAltitude();
             DecimalFormat df = new DecimalFormat("###");
             switch (speedChoice) {
                 case 1:
@@ -144,78 +145,70 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     private void updateLayout(float[] value) {
         float mBar = value[0];
-        //barometer calibration
-        barometerCalibrationString = editBarometerCalibration.getText().toString();
+        DecimalFormat decimalFormat = new DecimalFormat("####.##");
+        DecimalFormat df_altitude = new DecimalFormat("######");
+        editBarometerCalibration.setText(String.valueOf(decimalFormat.format(calibrator)));
+
         float barCal = 0.0f;
         try {
-            barCal = Float.valueOf(barometerCalibrationString);
+            barCal = calibrator;
         } catch (Exception e) {
             System.out.println("calibration value error!");
         }
-        // getting QNH
-        QNH = setQNH.getText().toString();
-        float meanSeaLevelPressure = 0.0f;
-        try {
-            Float qnh = Float.valueOf(QNH);
-            meanSeaLevelPressure = qnh;
-        } catch (Exception e) {
-            System.out.println("input error!");
-        }
 
         //getting altitude
-        float altitude = 0.0f;
+        mBar = mBar + barCal;
+        float altitude = SensorManager.getAltitude(meanSeaLevelPressure, mBar);
         float inhg = (mBar * 0.02953f);
         float mmhg = (mBar * 0.750062f);
-        DecimalFormat df_altitude = new DecimalFormat("######");
-        DecimalFormat df_mBar = new DecimalFormat("####.#");
-        DecimalFormat df_inHg = new DecimalFormat("##.##");
-        DecimalFormat df_mmHg = new DecimalFormat("###.#");
+
         TextView currentPressure = (TextView) findViewById(R.id.currentPressure);
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
         TextView altitudeText = (TextView) findViewById(R.id.altitudeText);
+        TextView baroText = (TextView) findViewById(R.id.baroText);
+        TextView qnhText = (TextView) findViewById(R.id.qnhText);
 
         switch (pressureMeasureChoice) {
             case (1):
                 // show pressure in millibars
-                mBar = mBar + barCal;
-                if (setQNH.getText().length() > 0)
-                    altitude = SensorManager.getAltitude(meanSeaLevelPressure, mBar);
-                currentPressure.setText(df_mBar.format(mBar) + " hPa");
-                setQNH.setHint("hPa");
-                editBarometerCalibration.setHint("Calibration hPa");
+                currentPressure.setText(decimalFormat.format(mBar));
+                baroText.setText("Barometer, hPa");
+                qnhText.setText("QNH, hPa");
+                editBarometerCalibration.setText(decimalFormat.format(calibrator));
+                setQNH.setText(decimalFormat.format(meanSeaLevelPressure));
                 break;
             case (2):
                 // show pressure in inchHg
-                inhg = inhg + barCal;
-                if (setQNH.getText().length() > 0)
-                    altitude = SensorManager.getAltitude(meanSeaLevelPressure, inhg);
-                currentPressure.setText(df_inHg.format(inhg) + " inHg");
-                setQNH.setHint("inHg");
-                editBarometerCalibration.setHint("Calibration inHg");
+                currentPressure.setText(decimalFormat.format(inhg));
+                baroText.setText("Barometer, in Hg");
+                qnhText.setText("QNH, in Hg");
+                editBarometerCalibration.setText(decimalFormat.format(calibrator * 0.02953f));
+                setQNH.setText(decimalFormat.format(meanSeaLevelPressure * 0.02953f));
                 break;
             case (3):
                 // show pressure in mmHg
-                mmhg = mmhg + barCal;
-                if (setQNH.getText().length() > 0)
-                    altitude = SensorManager.getAltitude(meanSeaLevelPressure, mmhg);
-                currentPressure.setText(df_mmHg.format(mmhg) + " mmHg");
-                setQNH.setHint("mmHg");
-                editBarometerCalibration.setHint("Calibration mmHg");
+                currentPressure.setText(decimalFormat.format(mmhg));
+                baroText.setText("Barometer, mm Hg");
+                qnhText.setText("QNH, mm Hg");
+                editBarometerCalibration.setText(decimalFormat.format(calibrator * 0.750062f));
+                setQNH.setText(decimalFormat.format(meanSeaLevelPressure * 0.750062f));
             default:
                 break;
         }
 
-
         if (altitudeChoice) {
             // show altitude in meter
-            altitudeText.setText("Altitude, m");
+            String gpsAltString = String.valueOf(df_altitude.format(gpsAlt));
+            altitudeText.setText("Altitude, m " + "<GPS: " + gpsAltString + ">");
             altimeter.setText(df_altitude.format(altitude));
         } else {
             // show in foot
-            altitudeText.setText("Altitude, ft");
             float footSize = 3.28084f;
+            String gpsAltString = String.valueOf(df_altitude.format(gpsAlt * footSize));
+            altitudeText.setText("Altitude, ft " + "<GPS: " + gpsAltString + ">");
             altimeter.setText(df_altitude.format(altitude * footSize));
         }
     }
@@ -224,8 +217,8 @@ public class MainActivity extends AppCompatActivity {
     void saveEditTextsState() {
         preferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(SAVED_CALIBRATION, editBarometerCalibration.getText().toString());
-        editor.putString(SAVED_QNH, setQNH.getText().toString());
+        editor.putFloat(SAVED_CALIBRATION, calibrator);
+        editor.putFloat(SAVED_QNH, meanSeaLevelPressure);
         editor.putInt(SAVED_PRESSURE_MEASURE_CHOICE, pressureMeasureChoice);
         editor.putBoolean(SAVED_ALTITUDE_CHOICE, altitudeChoice);
         editor.putInt(SAVED_SPEED_CHOICE, speedChoice);
@@ -235,14 +228,13 @@ public class MainActivity extends AppCompatActivity {
     // load data before destroying and push it to editTexts, calls in onCreate()
     void loadEditTextsState() {
         preferences = getPreferences(MODE_PRIVATE);
-        String savedCalibration = preferences.getString(SAVED_CALIBRATION, "");
-        String savedQNH = preferences.getString(SAVED_QNH, "");
+        float cal = preferences.getFloat(SAVED_CALIBRATION, 0);
+        float qnh = preferences.getFloat(SAVED_QNH, 1013.25f);
         int pressureMeasure = preferences.getInt(SAVED_PRESSURE_MEASURE_CHOICE, 1);
         int speed = preferences.getInt(SAVED_SPEED_CHOICE, 1);
         boolean altitudeChoiceLoad = preferences.getBoolean(SAVED_ALTITUDE_CHOICE, true);
-
-        editBarometerCalibration.setText(savedCalibration);
-        setQNH.setText(savedQNH);
+        calibrator = cal;
+        meanSeaLevelPressure = qnh;
         pressureMeasureChoice = pressureMeasure;
         altitudeChoice = altitudeChoiceLoad;
         speedChoice = speed;
@@ -278,80 +270,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCurrentPressure(View view) {
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.EFFECT_TICK));
+        vibration();
         pressureMeasureChoice++;
         if (pressureMeasureChoice > 3)
             pressureMeasureChoice = 1;
-        barometerCalibrationString = editBarometerCalibration.getText().toString();
-        if (barometerCalibrationString.length() > 0) {
-            float barCal = 0f;
-            try {
-                barCal = Float.valueOf(barometerCalibrationString);
-            } catch (Exception e) {
-                System.out.println("calibration value error!");
-            }
-
-            DecimalFormat df_calibration = new DecimalFormat("###.##");
-            switch (pressureMeasureChoice) {
-                case 1:
-                    barCal = barCal * 1.33322f;
-                    String setPascal = Float.toString(Float.parseFloat(df_calibration.format(barCal)));
-                    editBarometerCalibration.setText(setPascal);
-                    break;
-                case 2:
-                    barCal = barCal * 0.02953f;
-                    String setInch = Float.toString(Float.parseFloat(df_calibration.format(barCal)));
-                    editBarometerCalibration.setText(setInch);
-                    break;
-                case 3:
-                    barCal = barCal * 25.4f;
-                    String setMillimetre = Float.toString(Float.parseFloat(df_calibration.format(barCal)));
-                    editBarometerCalibration.setText(setMillimetre);
-                    break;
-                default:
-                    break;
-            }
-        }
-        if (QNH.length() > 0) {
-            float qnh = 0.0f;
-            QNH = setQNH.getText().toString();
-            try {
-                Float q = Float.valueOf(QNH);
-                qnh = q;
-            } catch (Exception e) {
-                System.out.println("input error!");
-            }
-            DecimalFormat df_qnh_inch = new DecimalFormat("##.##");
-            DecimalFormat df_qnh_hPa = new DecimalFormat("####");
-            DecimalFormat df_qnh_mm = new DecimalFormat("###.#");
-            switch (pressureMeasureChoice) {
-                case 1:
-                    qnh = qnh * 1.33322f;
-                    String setPascal = Float.toString(Float.parseFloat(df_qnh_hPa.format(qnh)));
-                    setQNH.setText(setPascal);
-                    break;
-                case 2:
-                    qnh = qnh * 0.02953f;
-                    String setInch = Float.toString(Float.parseFloat(df_qnh_inch.format(qnh)));
-                    setQNH.setText(setInch);
-                    break;
-                case 3:
-                    qnh = qnh * 25.4f;
-                    String setMillimetre = Float.toString(Float.parseFloat(df_qnh_mm.format(qnh)));
-                    setQNH.setText(setMillimetre);
-                    break;
-                default:
-                    break;
-            }
-        }
     }
 
     public void onClickSpeed(View view) {
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.EFFECT_TICK));
+        vibration();
         speedChoice++;
         if (speedChoice > 3)
             speedChoice = 1;
+    }
+
+    public void onClickCalibrationMinus(View view) {
+        vibration();
+        if (calibrator > -20) {
+            calibrator = calibrator - 0.05f;
+        }
+    }
+
+    public void onClickCalibrationPlus(View view) {
+        vibration();
+        if (calibrator < 20) {
+            calibrator = calibrator + 0.05f;
+        }
+    }
+
+    public void onClickPlus(View view) {
+        vibration();
+        if (meanSeaLevelPressure < 1084.0f) {
+            meanSeaLevelPressure = meanSeaLevelPressure + 0.25f;
+        }
+    }
+
+    public void onClickMinus(View view) {
+        vibration();
+        if (meanSeaLevelPressure > 948.0f) {
+            meanSeaLevelPressure = meanSeaLevelPressure - 0.25f;
+        }
+    }
+
+    public void vibration() {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.EFFECT_TICK));
     }
 }

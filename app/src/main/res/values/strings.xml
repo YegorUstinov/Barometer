@@ -6,7 +6,8 @@
     <string name="QNH">QNH</string>
     <string name="pressure">Barometer</string>
     <string name="mBar">pressure</string>
-    <string name="barometerCalibrationValue">Calibration</string>
     <string name="speed">Speed</string>
     <string name="meterText">m</string>
+    <string name="calibrationMinus">-</string>
+    <string name="calibrationPlus">+</string>
 </resources>
