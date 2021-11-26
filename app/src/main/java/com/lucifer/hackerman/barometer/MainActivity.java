@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private float[] pressValue = new float[1];
     private boolean altitudeChoice = true;
-    private int pressureMeasureChoice = 1;
+    private int pressureMeasureChoice = 2;
     private int speedChoice = 1;
     float calibrator = 0.0f;
     float meanSeaLevelPressure = 1013.25f;
@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
     TextView editBarometerCalibration;
     TextView setQNH;
     TextView mBars;
+
+    DecimalFormat decimalFormat = new DecimalFormat("####");
+    DecimalFormat df_withDecimal = new DecimalFormat("##.##");
+    DecimalFormat df_Calibration_mBar_And_mm = new DecimalFormat("#.#");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateLayout(float[] value) {
         float mBar = value[0];
-        DecimalFormat decimalFormat = new DecimalFormat("####.##");
-        DecimalFormat df_altitude = new DecimalFormat("######");
         editBarometerCalibration.setText(String.valueOf(decimalFormat.format(calibrator)));
 
         float barCal = 0.0f;
@@ -174,26 +176,28 @@ public class MainActivity extends AppCompatActivity {
         switch (pressureMeasureChoice) {
             case (1):
                 // show pressure in millibars
+                meanSeaLevelPressure = Float.parseFloat(decimalFormat.format(meanSeaLevelPressure));
+                calibrator = Float.parseFloat(df_Calibration_mBar_And_mm.format(calibrator));
                 currentPressure.setText(decimalFormat.format(mBar));
                 baroText.setText("Barometer, hPa");
                 qnhText.setText("QNH, hPa");
-                editBarometerCalibration.setText(decimalFormat.format(calibrator));
+                editBarometerCalibration.setText(df_Calibration_mBar_And_mm.format(calibrator));
                 setQNH.setText(decimalFormat.format(meanSeaLevelPressure));
                 break;
             case (2):
                 // show pressure in inchHg
-                currentPressure.setText(decimalFormat.format(inhg));
+                currentPressure.setText(df_withDecimal.format(inhg));
                 baroText.setText("Barometer, in Hg");
                 qnhText.setText("QNH, in Hg");
-                editBarometerCalibration.setText(decimalFormat.format(calibrator * 0.02953f));
-                setQNH.setText(decimalFormat.format(meanSeaLevelPressure * 0.02953f));
+                editBarometerCalibration.setText(df_withDecimal.format(calibrator * 0.02953f));
+                setQNH.setText(df_withDecimal.format(meanSeaLevelPressure * 0.02953f));
                 break;
             case (3):
                 // show pressure in mmHg
                 currentPressure.setText(decimalFormat.format(mmhg));
                 baroText.setText("Barometer, mm Hg");
                 qnhText.setText("QNH, mm Hg");
-                editBarometerCalibration.setText(decimalFormat.format(calibrator * 0.750062f));
+                editBarometerCalibration.setText(df_Calibration_mBar_And_mm.format(calibrator * 0.750062f));
                 setQNH.setText(decimalFormat.format(meanSeaLevelPressure * 0.750062f));
             default:
                 break;
@@ -201,15 +205,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (altitudeChoice) {
             // show altitude in meter
-            String gpsAltString = String.valueOf(df_altitude.format(gpsAlt));
+            String gpsAltString = String.valueOf(decimalFormat.format(gpsAlt));
             altitudeText.setText("Altitude, m " + "<GPS: " + gpsAltString + ">");
-            altimeter.setText(df_altitude.format(altitude));
+            altimeter.setText(decimalFormat.format(altitude));
         } else {
             // show in foot
             float footSize = 3.28084f;
-            String gpsAltString = String.valueOf(df_altitude.format(gpsAlt * footSize));
+            String gpsAltString = String.valueOf(decimalFormat.format(gpsAlt * footSize));
             altitudeText.setText("Altitude, ft " + "<GPS: " + gpsAltString + ">");
-            altimeter.setText(df_altitude.format(altitude * footSize));
+            altimeter.setText(decimalFormat.format(altitude * footSize));
         }
     }
 
@@ -230,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
         preferences = getPreferences(MODE_PRIVATE);
         float cal = preferences.getFloat(SAVED_CALIBRATION, 0);
         float qnh = preferences.getFloat(SAVED_QNH, 1013.25f);
-        int pressureMeasure = preferences.getInt(SAVED_PRESSURE_MEASURE_CHOICE, 1);
+        int pressureMeasure = preferences.getInt(SAVED_PRESSURE_MEASURE_CHOICE, 2);
         int speed = preferences.getInt(SAVED_SPEED_CHOICE, 1);
         boolean altitudeChoiceLoad = preferences.getBoolean(SAVED_ALTITUDE_CHOICE, true);
         calibrator = cal;
@@ -285,29 +289,73 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickCalibrationMinus(View view) {
         vibration();
-        if (calibrator > -20) {
-            calibrator = calibrator - 0.05f;
+        if (calibrator > -10) {
+            switch (pressureMeasureChoice) {
+                case (1):
+                    calibrator = calibrator - 0.1f;
+                    break;
+                case (2):
+                    calibrator = calibrator - 0.3386389f;
+                    break;
+                case (3):
+                    calibrator = calibrator - 1.33322f;
+                default:
+                    break;
+            }
         }
     }
 
     public void onClickCalibrationPlus(View view) {
         vibration();
-        if (calibrator < 20) {
-            calibrator = calibrator + 0.05f;
+        if (calibrator < 10) {
+            switch (pressureMeasureChoice) {
+                case (1):
+                    calibrator = calibrator + 0.1f;
+                    break;
+                case (2):
+                    calibrator = calibrator + 0.3386389f;
+                    break;
+                case (3):
+                    calibrator = calibrator + 1.33322f;
+                default:
+                    break;
+            }
         }
     }
 
     public void onClickPlus(View view) {
         vibration();
         if (meanSeaLevelPressure < 1084.0f) {
-            meanSeaLevelPressure = meanSeaLevelPressure + 0.25f;
+            switch (pressureMeasureChoice) {
+                case (1):
+                    meanSeaLevelPressure = meanSeaLevelPressure + 1.0f;
+                    break;
+                case (2):
+                    meanSeaLevelPressure = meanSeaLevelPressure + 0.3386389f;
+                    break;
+                case (3):
+                    meanSeaLevelPressure = meanSeaLevelPressure + 1.33322f;
+                default:
+                    break;
+            }
         }
     }
 
     public void onClickMinus(View view) {
         vibration();
         if (meanSeaLevelPressure > 948.0f) {
-            meanSeaLevelPressure = meanSeaLevelPressure - 0.25f;
+            switch (pressureMeasureChoice) {
+                case (1):
+                    meanSeaLevelPressure = meanSeaLevelPressure - 1.0f;
+                    break;
+                case (2):
+                    meanSeaLevelPressure = meanSeaLevelPressure - 0.3386389f;
+                    break;
+                case (3):
+                    meanSeaLevelPressure = meanSeaLevelPressure - 1.33322f;
+                default:
+                    break;
+            }
         }
     }
 
