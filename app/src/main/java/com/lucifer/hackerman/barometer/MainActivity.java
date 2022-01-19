@@ -8,7 +8,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -34,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     float calibrator = 0.0f;
     float meanSeaLevelPressure = 1013.25f;
     double gpsAlt = 0.0;
+    float speed = 0.0f;
 
     final String SAVED_CALIBRATION = "SAVED_CALIBRATION";
     final String SAVED_QNH = "SAVED_QNH";
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     DecimalFormat df_withDecimal = new DecimalFormat("##.##");
     DecimalFormat df_Calibration_mBar_And_mm = new DecimalFormat("#.#");
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,26 +63,17 @@ public class MainActivity extends AppCompatActivity {
         loadEditTextsState();
 
         // Location
-        LocationManager locationManager;
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
+        // permission request
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
         }
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-        criteria.setAltitudeRequired(true);
-        criteria.setBearingRequired(true);
-        criteria.setSpeedRequired(true);
-        criteria.setCostAllowed(true);
-        String provider = locationManager.getBestProvider(criteria, true);
 
-        Location l = locationManager.getLastKnownLocation(provider);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, myLocationListener);
+        Location l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         updateWithNewLocation(l);
-
-        locationManager.requestLocationUpdates(provider, 10, 0, myLocationListener);
     }
 
     private LocationListener myLocationListener = new LocationListener() {
@@ -107,30 +99,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void updateWithNewLocation(Location location) {
-        TextView speedTV = (TextView) findViewById(R.id.speed);
-        TextView speedText = (TextView) findViewById(R.id.speedText);
-        if (location != null) {
-            float speed = location.getSpeed();
-            gpsAlt = location.getAltitude();
-            DecimalFormat df = new DecimalFormat("###");
-            switch (speedChoice) {
-                case 1:
-                    speedText.setText("Speed, km/h");
-                    speedTV.setText(df.format(speed * 3.6f));
-                    break;
-                case 2:
-                    speedText.setText("Speed, mph");
-                    speedTV.setText(df.format(speed * 2.23694f));
-                    break;
-                case 3:
-                    speedText.setText("Speed, kts");
-                    speedTV.setText(df.format(speed * 1.94384f));
-                    break;
-                default:
-                    break;
-            }
-        }
-
+        speed = location.getSpeed();
+        gpsAlt = location.getAltitude();
     }
 
     private final SensorEventListener sensorEventListener = new SensorEventListener() {
@@ -154,15 +124,8 @@ public class MainActivity extends AppCompatActivity {
         float mBar = value[0];
         editBarometerCalibration.setText(String.valueOf(decimalFormat.format(calibrator)));
 
-        float barCal = 0.0f;
-        try {
-            barCal = calibrator;
-        } catch (Exception e) {
-            System.out.println("calibration value error!");
-        }
-
         //getting altitude
-        mBar = mBar + barCal;
+        mBar = mBar + calibrator;
         float altitude = SensorManager.getAltitude(meanSeaLevelPressure, mBar);
         float inhg = (mBar * 0.02953f);
         float mmhg = (mBar * 0.750062f);
@@ -172,7 +135,10 @@ public class MainActivity extends AppCompatActivity {
         TextView altitudeText = (TextView) findViewById(R.id.altitudeText);
         TextView baroText = (TextView) findViewById(R.id.baroText);
         TextView qnhText = (TextView) findViewById(R.id.qnhText);
+        TextView speedTV = (TextView) findViewById(R.id.speed);
+        TextView speedText = (TextView) findViewById(R.id.speedText);
 
+        // show pressure
         switch (pressureMeasureChoice) {
             case (1):
                 // show pressure in millibars
@@ -203,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
 
+        // show altitude
         if (altitudeChoice) {
             // show altitude in meter
             String gpsAltString = String.valueOf(decimalFormat.format(gpsAlt));
@@ -214,6 +181,28 @@ public class MainActivity extends AppCompatActivity {
             String gpsAltString = String.valueOf(decimalFormat.format(gpsAlt * footSize));
             altitudeText.setText("Altitude, ft " + "<GPS: " + gpsAltString + ">");
             altimeter.setText(decimalFormat.format(altitude * footSize));
+        }
+
+        // show speed
+        DecimalFormat df_mach = new DecimalFormat(".###");
+        switch (speedChoice) {
+            case 1:
+                speedText.setText("Speed, km/h");
+                speedTV.setText(decimalFormat.format(speed * 3.6f));
+                break;
+            case 2:
+                speedText.setText("Speed, mph");
+                speedTV.setText(decimalFormat.format(speed * 2.23694f));
+                break;
+            case 3:
+                speedText.setText("Speed, kts");
+                speedTV.setText(decimalFormat.format(speed * 1.94384f));
+                break;
+            case 4:
+                speedText.setText("Speed, mach");
+                speedTV.setText(df_mach.format(speed * 0.00291545));
+            default:
+                break;
         }
     }
 
@@ -264,8 +253,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickAltitude(View view) {
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(VibrationEffect.createOneShot(10, VibrationEffect.EFFECT_TICK));
+        vibration();
         if (altitudeChoice) {
             altitudeChoice = false;
         } else {
@@ -283,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClickSpeed(View view) {
         vibration();
         speedChoice++;
-        if (speedChoice > 3)
+        if (speedChoice > 4)
             speedChoice = 1;
     }
 
@@ -361,6 +349,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void vibration() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.EFFECT_TICK));
+        vibrator.vibrate(VibrationEffect.createOneShot(1, VibrationEffect.EFFECT_TICK));
     }
 }

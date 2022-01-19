@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Altimeter &amp; Barometer</string>
+    <string name="app_name">AltBarSpeed</string>
     <string name="millibars">hPa</string>
     <string name="null_str">null</string>
     <string name="Altitude">Altitude</string>
