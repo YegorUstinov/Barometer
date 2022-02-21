@@ -10,4 +10,20 @@
     <string name="meterText">m</string>
     <string name="calibrationMinus">-</string>
     <string name="calibrationPlus">+</string>
+
+    <string name="Barometer_hPa">Barometer, hPa</string>
+    <string name="Barometer_inHg">Barometer, in Hg</string>
+    <string name="Barometer_mmHg">Barometer, mm Hg</string>
+
+    <string name="QNH_hPa">QNH, hPa</string>
+    <string name="QNH_inHg">QNH, in Hg</string>
+    <string name="QNH_mmHg">QNH, mm Hg</string>
+
+    <string name="Altitude_meters">Altitude, m GPS:</string>
+    <string name="Altitude_feet">Altitude, ft GPS:</string>
+
+    <string name="Speed_kmh">Speed, km/h</string>
+    <string name="Speed_mph">Speed, mph</string>
+    <string name="Speed_kts">Speed, kts</string>
+    <string name="Speed_mach">Speed, mach</string>
 </resources>

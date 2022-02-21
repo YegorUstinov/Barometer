@@ -11,12 +11,14 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     DecimalFormat decimalFormat = new DecimalFormat("####");
     DecimalFormat df_withDecimal = new DecimalFormat("##.##");
     DecimalFormat df_Calibration_mBar_And_mm = new DecimalFormat("#.#");
-
+    DecimalFormat df_mach = new DecimalFormat(".###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 0, myLocationListener);
         Location l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, myLocationListener);
         updateWithNewLocation(l);
     }
 
@@ -98,9 +100,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     private void updateWithNewLocation(Location location) {
-        speed = location.getSpeed();
-        gpsAlt = location.getAltitude();
+        if (location != null) {
+            speed = location.getSpeed();
+            gpsAlt = location.getAltitude();
+        }
     }
 
     private final SensorEventListener sensorEventListener = new SensorEventListener() {
@@ -145,24 +150,24 @@ public class MainActivity extends AppCompatActivity {
                 meanSeaLevelPressure = Float.parseFloat(decimalFormat.format(meanSeaLevelPressure));
                 calibrator = Float.parseFloat(df_Calibration_mBar_And_mm.format(calibrator));
                 currentPressure.setText(decimalFormat.format(mBar));
-                baroText.setText("Barometer, hPa");
-                qnhText.setText("QNH, hPa");
+                baroText.setText(R.string.Barometer_hPa);
+                qnhText.setText(R.string.QNH_hPa);
                 editBarometerCalibration.setText(df_Calibration_mBar_And_mm.format(calibrator));
                 setQNH.setText(decimalFormat.format(meanSeaLevelPressure));
                 break;
             case (2):
                 // show pressure in inchHg
                 currentPressure.setText(df_withDecimal.format(inhg));
-                baroText.setText("Barometer, in Hg");
-                qnhText.setText("QNH, in Hg");
+                baroText.setText(R.string.Barometer_inHg);
+                qnhText.setText(R.string.QNH_inHg);
                 editBarometerCalibration.setText(df_withDecimal.format(calibrator * 0.02953f));
                 setQNH.setText(df_withDecimal.format(meanSeaLevelPressure * 0.02953f));
                 break;
             case (3):
                 // show pressure in mmHg
                 currentPressure.setText(decimalFormat.format(mmhg));
-                baroText.setText("Barometer, mm Hg");
-                qnhText.setText("QNH, mm Hg");
+                baroText.setText(R.string.Barometer_mmHg);
+                qnhText.setText(R.string.QNH_mmHg);
                 editBarometerCalibration.setText(df_Calibration_mBar_And_mm.format(calibrator * 0.750062f));
                 setQNH.setText(decimalFormat.format(meanSeaLevelPressure * 0.750062f));
             default:
@@ -170,36 +175,35 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // show altitude
+        String altitudeTextM = "Altitude, m GPS: ";
+        String altitudeTextFt = "Altitude, ft GPS: ";
         if (altitudeChoice) {
             // show altitude in meter
-            String gpsAltString = String.valueOf(decimalFormat.format(gpsAlt));
-            altitudeText.setText("Altitude, m " + "<GPS: " + gpsAltString + ">");
+            altitudeText.setText(altitudeTextM + decimalFormat.format(gpsAlt));
             altimeter.setText(decimalFormat.format(altitude));
         } else {
             // show in foot
             float footSize = 3.28084f;
-            String gpsAltString = String.valueOf(decimalFormat.format(gpsAlt * footSize));
-            altitudeText.setText("Altitude, ft " + "<GPS: " + gpsAltString + ">");
+            altitudeText.setText(altitudeTextFt + decimalFormat.format(gpsAlt * footSize));
             altimeter.setText(decimalFormat.format(altitude * footSize));
         }
 
         // show speed
-        DecimalFormat df_mach = new DecimalFormat(".###");
         switch (speedChoice) {
             case 1:
-                speedText.setText("Speed, km/h");
+                speedText.setText(R.string.Speed_kmh);
                 speedTV.setText(decimalFormat.format(speed * 3.6f));
                 break;
             case 2:
-                speedText.setText("Speed, mph");
+                speedText.setText(R.string.Speed_mph);
                 speedTV.setText(decimalFormat.format(speed * 2.23694f));
                 break;
             case 3:
-                speedText.setText("Speed, kts");
+                speedText.setText(R.string.Speed_kts);
                 speedTV.setText(decimalFormat.format(speed * 1.94384f));
                 break;
             case 4:
-                speedText.setText("Speed, mach");
+                speedText.setText(R.string.Speed_mach);
                 speedTV.setText(df_mach.format(speed * 0.00291545));
             default:
                 break;
@@ -252,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
         saveEditTextsState();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void onClickAltitude(View view) {
         vibration();
         if (altitudeChoice) {
@@ -261,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void onClickCurrentPressure(View view) {
         vibration();
         pressureMeasureChoice++;
@@ -268,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
             pressureMeasureChoice = 1;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void onClickSpeed(View view) {
         vibration();
         speedChoice++;
@@ -275,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
             speedChoice = 1;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void onClickCalibrationMinus(View view) {
         vibration();
         if (calibrator > -10) {
@@ -293,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void onClickCalibrationPlus(View view) {
         vibration();
         if (calibrator < 10) {
@@ -311,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void onClickPlus(View view) {
         vibration();
         if (meanSeaLevelPressure < 1084.0f) {
@@ -329,6 +339,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void onClickMinus(View view) {
         vibration();
         if (meanSeaLevelPressure > 948.0f) {
@@ -347,8 +358,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void vibration() {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(VibrationEffect.createOneShot(1, VibrationEffect.EFFECT_TICK));
+        vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK));
     }
 }
