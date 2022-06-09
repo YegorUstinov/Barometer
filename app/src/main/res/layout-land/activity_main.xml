@@ -314,6 +314,7 @@
                     tools:ignore="TextContrastCheck">
 
                 </TextView>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

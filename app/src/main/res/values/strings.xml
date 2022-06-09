@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AltBarSpeed</string>
+    <string name="app_name">BaroAltimeter\nSpeedometer</string>
     <string name="millibars">hPa</string>
     <string name="null_str">null</string>
     <string name="Altitude">Altitude</string>
@@ -26,4 +26,10 @@
     <string name="Speed_mph">Speed, mph</string>
     <string name="Speed_kts">Speed, kts</string>
     <string name="Speed_mach">Speed, mach</string>
+    <string name="title_activity_gps_data">GPS_Data</string>
+
+    <string name="GPS_Data">GPS</string>
+    <string name="about">About</string>
+    <string name="about_text">This app is a barometric altimeter, barometer and GPS speedometer.\n\nVisit: <a href="https://aviationweather.gov/metar/data">aviationweather.gov</a> to get QNH, use <a href="https://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport code</a>.\n\nDeveloper: Yegor Ustinov (__yegoru__).\nVersion: 1.0</string>
+
 </resources>

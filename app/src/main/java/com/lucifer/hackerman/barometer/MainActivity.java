@@ -2,6 +2,7 @@ package com.lucifer.hackerman.barometer;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
@@ -48,14 +49,48 @@ public class MainActivity extends AppCompatActivity {
     TextView mBars;
 
     DecimalFormat decimalFormat = new DecimalFormat("####");
-    DecimalFormat df_withDecimal = new DecimalFormat("##.##");
-    DecimalFormat df_Calibration_mBar_And_mm = new DecimalFormat("#.#");
+    DecimalFormat df_withDecimal = new DecimalFormat("#0.00");
+    DecimalFormat df_Calibration_mBar_And_mm = new DecimalFormat("0.0");
     DecimalFormat df_mach = new DecimalFormat(".###");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //goToBarometer
+        //create a new button
+        TextView toBarometer = (TextView) findViewById(R.id.altimeter);
+        toBarometer.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                goToBarometer();
+                return false;
+            }
+        });
+
+        // goToGPS
+        //create a new button
+        TextView speedTV = (TextView) findViewById(R.id.speed);
+        speedTV.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                goToGPS_Data();
+                return false;
+            }
+        });
+
+        //goToAbout
+        //create a new button
+        TextView toAbout = (TextView) findViewById(R.id.qnhText);
+        toAbout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                goToAbout();
+                return false;
+            }
+        });
+
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
@@ -99,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
-
 
     private void updateWithNewLocation(Location location) {
         if (location != null) {
@@ -363,4 +397,26 @@ public class MainActivity extends AppCompatActivity {
         Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK));
     }
+
+    public void goToBarometer() {
+        vibration();
+        Intent intent = new Intent(this, BarometerSetting.class);
+        // add push settings
+        intent.putExtra("calibration", calibrator);
+        startActivity(intent);
+    }
+
+    public void goToGPS_Data() {
+        vibration();
+        Intent intent = new Intent(this, GPS_Data.class);
+        // add push settings
+        startActivity(intent);
+    }
+
+    public void goToAbout() {
+        vibration();
+        Intent intent = new Intent(this, About.class);
+        startActivity(intent);
+    }
+
 }
