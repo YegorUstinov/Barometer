@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import java.text.DecimalFormat;
+
 // release version 1.0
 public class MainActivity extends AppCompatActivity {
     private SensorManager sensorManager;
@@ -136,13 +137,9 @@ public class MainActivity extends AppCompatActivity {
         //getting altitude
         mBar = mBar + calibrator;
         float altitude = SensorManager.getAltitude(meanSeaLevelPressure, mBar);
-        float inhg = (mBar * 0.02953f);
-        float mmhg = (mBar * 0.750062f);
 
-        TextView currentPressure = (TextView) findViewById(R.id.currentPressureTV);
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
         TextView altitudeText = (TextView) findViewById(R.id.altitudeText);
-        //TextView baroText = (TextView) findViewById(R.id.baroText);
         TextView qnhText = (TextView) findViewById(R.id.qnhText);
         TextView speedTV = (TextView) findViewById(R.id.speed);
         TextView speedText = (TextView) findViewById(R.id.speedText);
@@ -171,9 +168,11 @@ public class MainActivity extends AppCompatActivity {
         String altitudeTextFt = "Altitude, ft";
         if (altitudeChoice == 1) {
             // show altitude in meter
+            altitudeText.setText(altitudeTextM);
             altimeter.setText(decimalFormat.format(altitude));
         } else {
             // show in foot
+            altitudeText.setText(altitudeTextFt);
             float footSize = 3.28084f;
             altimeter.setText(decimalFormat.format(altitude * footSize));
         }

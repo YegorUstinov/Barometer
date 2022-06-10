@@ -66,7 +66,7 @@ public class GPS_Data extends AppCompatActivity {
     };
 
     DecimalFormat decimalFormat = new DecimalFormat("###.#");
-    DecimalFormat df_coordinates = new DecimalFormat("##.######°");
+    DecimalFormat df_coordinates = new DecimalFormat("##.########°");
     DecimalFormat machFormat = new DecimalFormat(".000");
     DecimalFormat feetFormat = new DecimalFormat("######");
 
