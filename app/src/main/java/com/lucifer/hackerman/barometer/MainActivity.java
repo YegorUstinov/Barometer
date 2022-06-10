@@ -25,7 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import java.text.DecimalFormat;
-
+// release version 1.0
 public class MainActivity extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor pressure;
