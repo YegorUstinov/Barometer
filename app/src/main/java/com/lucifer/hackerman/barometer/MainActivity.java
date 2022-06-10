@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        buttonsClick();
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
@@ -80,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
         Location l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, myLocationListener);
         updateWithNewLocation(l);
-
-        buttonsClick();
     }
 
     private LocationListener myLocationListener = new LocationListener() {
@@ -233,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         sensorManager.registerListener(sensorEventListener, pressure, SensorManager.SENSOR_DELAY_NORMAL);
         loadEditTextsState();
+        buttonsClick();
     }
 
     @Override
