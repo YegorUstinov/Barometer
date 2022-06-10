@@ -55,7 +55,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onClickAltitude"
                     android:shadowColor="@android:color/holo_red_dark"
                     android:shadowDx="0"
                     android:shadowDy="0"
@@ -96,7 +95,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
                     android:maxLines="1"
-                    android:onClick="onClickSpeed"
                     android:shadowColor="@android:color/holo_green_dark"
                     android:shadowDx="0"
                     android:shadowDy="0"
@@ -127,114 +125,12 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/baroText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="sans-serif"
-                    android:shadowColor="@android:color/holo_blue_dark"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="10"
-                    android:text="@string/pressure"
-                    android:textAlignment="center"
-                    android:textAllCaps="false"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/baroText"
-                    app:layout_constraintStart_toStartOf="@+id/baroText"
-                    app:layout_constraintTop_toBottomOf="@+id/baroText"
-                    app:layout_constraintVertical_bias="0.0">
-
-                    <Button
-                        android:id="@+id/calibrationMinus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:onClick="onClickCalibrationMinus"
-                        android:longClickable="true"
-                        android:shadowColor="@android:color/holo_blue_dark"
-                        android:shadowDx="0"
-                        android:shadowDy="0"
-                        android:shadowRadius="10"
-                        android:text="@string/calibrationMinus"
-                        android:textAlignment="center"
-                        android:textSize="24sp" />
-
-                    <Button
-                        android:id="@+id/calibrationPlus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:maxLines="1"
-                        android:onClick="onClickCalibrationPlus"
-                        android:longClickable="true"
-                        android:shadowColor="@android:color/holo_blue_dark"
-                        android:shadowDx="0"
-                        android:shadowDy="0"
-                        android:shadowRadius="10"
-                        android:text="@string/calibrationPlus"
-                        android:textAlignment="center"
-                        android:textSize="24sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/barometerCalibration"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:shadowColor="@android:color/holo_blue_dark"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="10"
-                    android:text="@string/null_str"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/baroText"
-                    app:layout_constraintStart_toStartOf="@+id/baroText"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/currentPressure"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:minHeight="48dp"
-                    android:onClick="onClickCurrentPressure"
-                    android:shadowColor="@android:color/holo_blue_dark"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="10"
-                    android:text="@string/null_str"
-                    android:textAlignment="center"
-                    android:textSize="34sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/baroText"
-                    app:layout_constraintStart_toStartOf="@+id/baroText"
-                    app:layout_constraintTop_toBottomOf="@+id/barometerCalibration"
-                    app:layout_constraintVertical_bias="0.0"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
-
-                <TextView
                     android:id="@+id/qnhText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:fontFamily="sans-serif"
                     android:shadowColor="@android:color/holo_orange_light"
                     android:shadowDx="0"
@@ -244,31 +140,29 @@
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textSize="34sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/baroText"
-                    app:layout_constraintStart_toStartOf="@+id/baroText"
-                    app:layout_constraintTop_toBottomOf="@+id/currentPressure"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/baroText"
-                    app:layout_constraintStart_toStartOf="@+id/baroText"
-                    app:layout_constraintTop_toBottomOf="@+id/qnhText"
-                    app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/setQNH">
 
                     <Button
                         android:id="@+id/minus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:maxLines="1"
-                        android:onClick="onClickMinus"
                         android:longClickable="true"
+                        android:maxLines="1"
                         android:shadowColor="@android:color/holo_orange_light"
                         android:shadowDx="0"
                         android:shadowDy="0"
@@ -282,9 +176,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:maxLines="1"
-                        android:onClick="onClickPlus"
                         android:longClickable="true"
+                        android:maxLines="1"
                         android:shadowColor="@android:color/holo_orange_light"
                         android:shadowDx="0"
                         android:shadowDy="0"
@@ -298,6 +191,9 @@
                     android:id="@+id/setQNH"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:fontFamily="sans-serif"
                     android:shadowColor="@android:color/holo_orange_light"
                     android:shadowDx="0"
@@ -306,14 +202,42 @@
                     android:text="@string/null_str"
                     android:textAlignment="center"
                     android:textSize="34sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/baroText"
-                    app:layout_constraintStart_toStartOf="@+id/baroText"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                    app:layout_constraintVertical_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/qnhText"
                     tools:ignore="TextContrastCheck">
 
                 </TextView>
+
+                <Button
+                    android:id="@+id/buttonGPS"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/GPS_Data"
+                    app:layout_constraintEnd_toEndOf="@+id/buttonSettings"
+                    app:layout_constraintStart_toStartOf="@+id/buttonSettings"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonSettings" />
+
+                <Button
+                    android:id="@+id/buttonSettings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Settings"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+                    app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+                <Button
+                    android:id="@+id/buttonAbout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/about"
+                    app:layout_constraintEnd_toEndOf="@+id/buttonGPS"
+                    app:layout_constraintStart_toStartOf="@+id/buttonGPS"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonGPS" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

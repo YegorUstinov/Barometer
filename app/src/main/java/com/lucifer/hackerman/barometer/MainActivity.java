@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -30,72 +31,40 @@ public class MainActivity extends AppCompatActivity {
     private Sensor pressure;
 
     private float[] pressValue = new float[1];
-    private boolean altitudeChoice = true;
-    private int pressureMeasureChoice = 2;
+    private int altitudeChoice = 1;
+    public int pressureMeasureChoice = 2;
     private int speedChoice = 1;
     float calibrator = 0.0f;
     float meanSeaLevelPressure = 1013.25f;
     double gpsAlt = 0.0;
     float speed = 0.0f;
 
+    final String SHARED_PREFERENCES = "SHARE_PREFERENCES";
     final String SAVED_CALIBRATION = "SAVED_CALIBRATION";
     final String SAVED_QNH = "SAVED_QNH";
     final String SAVED_PRESSURE_MEASURE_CHOICE = "SAVED_PRESSURE_MEASURE_CHOICE";
     final String SAVED_ALTITUDE_CHOICE = "SAVED_ALTITUDE_CHOICE";
     final String SAVED_SPEED_CHOICE = "SAVED_SPEED_CHOICE";
-    SharedPreferences preferences;
-    TextView editBarometerCalibration;
+    public SharedPreferences preferences;
+
     TextView setQNH;
     TextView mBars;
 
     DecimalFormat decimalFormat = new DecimalFormat("####");
     DecimalFormat df_withDecimal = new DecimalFormat("#0.00");
     DecimalFormat df_Calibration_mBar_And_mm = new DecimalFormat("0.0");
-    DecimalFormat df_mach = new DecimalFormat(".###");
+    DecimalFormat df_mach = new DecimalFormat(".000");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //goToBarometer
-        //create a new button
-        TextView toBarometer = (TextView) findViewById(R.id.altimeter);
-        toBarometer.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                goToBarometer();
-                return false;
-            }
-        });
-
-        // goToGPS
-        //create a new button
-        TextView speedTV = (TextView) findViewById(R.id.speed);
-        speedTV.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                goToGPS_Data();
-                return false;
-            }
-        });
-
-        //goToAbout
-        //create a new button
-        TextView toAbout = (TextView) findViewById(R.id.qnhText);
-        toAbout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                goToAbout();
-                return false;
-            }
-        });
-
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
-        mBars = (TextView) findViewById(R.id.currentPressure);
-        editBarometerCalibration = (TextView) findViewById(R.id.barometerCalibration);
+        mBars = (TextView) findViewById(R.id.currentPressureTV);
+        //editBarometerCalibration = (TextView) findViewById(R.id.barometerCalibration);
         setQNH = (TextView) findViewById(R.id.setQNH);
         loadEditTextsState();
 
@@ -111,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         Location l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 0, myLocationListener);
         updateWithNewLocation(l);
+
+        buttonsClick();
     }
 
     private LocationListener myLocationListener = new LocationListener() {
@@ -161,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateLayout(float[] value) {
         float mBar = value[0];
-        editBarometerCalibration.setText(String.valueOf(decimalFormat.format(calibrator)));
+        //editBarometerCalibration.setText(String.valueOf(decimalFormat.format(calibrator)));
 
         //getting altitude
         mBar = mBar + calibrator;
@@ -169,10 +140,10 @@ public class MainActivity extends AppCompatActivity {
         float inhg = (mBar * 0.02953f);
         float mmhg = (mBar * 0.750062f);
 
-        TextView currentPressure = (TextView) findViewById(R.id.currentPressure);
+        TextView currentPressure = (TextView) findViewById(R.id.currentPressureTV);
         TextView altimeter = (TextView) findViewById(R.id.altimeter);
         TextView altitudeText = (TextView) findViewById(R.id.altitudeText);
-        TextView baroText = (TextView) findViewById(R.id.baroText);
+        //TextView baroText = (TextView) findViewById(R.id.baroText);
         TextView qnhText = (TextView) findViewById(R.id.qnhText);
         TextView speedTV = (TextView) findViewById(R.id.speed);
         TextView speedText = (TextView) findViewById(R.id.speedText);
@@ -180,45 +151,31 @@ public class MainActivity extends AppCompatActivity {
         // show pressure
         switch (pressureMeasureChoice) {
             case (1):
-                // show pressure in millibars
                 meanSeaLevelPressure = Float.parseFloat(decimalFormat.format(meanSeaLevelPressure));
                 calibrator = Float.parseFloat(df_Calibration_mBar_And_mm.format(calibrator));
-                currentPressure.setText(decimalFormat.format(mBar));
-                baroText.setText(R.string.Barometer_hPa);
                 qnhText.setText(R.string.QNH_hPa);
-                editBarometerCalibration.setText(df_Calibration_mBar_And_mm.format(calibrator));
                 setQNH.setText(decimalFormat.format(meanSeaLevelPressure));
                 break;
             case (2):
-                // show pressure in inchHg
-                currentPressure.setText(df_withDecimal.format(inhg));
-                baroText.setText(R.string.Barometer_inHg);
                 qnhText.setText(R.string.QNH_inHg);
-                editBarometerCalibration.setText(df_withDecimal.format(calibrator * 0.02953f));
                 setQNH.setText(df_withDecimal.format(meanSeaLevelPressure * 0.02953f));
                 break;
             case (3):
-                // show pressure in mmHg
-                currentPressure.setText(decimalFormat.format(mmhg));
-                baroText.setText(R.string.Barometer_mmHg);
                 qnhText.setText(R.string.QNH_mmHg);
-                editBarometerCalibration.setText(df_Calibration_mBar_And_mm.format(calibrator * 0.750062f));
                 setQNH.setText(decimalFormat.format(meanSeaLevelPressure * 0.750062f));
             default:
                 break;
         }
 
         // show altitude
-        String altitudeTextM = "Altitude, m GPS: ";
-        String altitudeTextFt = "Altitude, ft GPS: ";
-        if (altitudeChoice) {
+        String altitudeTextM = "Altitude, m";
+        String altitudeTextFt = "Altitude, ft";
+        if (altitudeChoice == 1) {
             // show altitude in meter
-            altitudeText.setText(altitudeTextM + decimalFormat.format(gpsAlt));
             altimeter.setText(decimalFormat.format(altitude));
         } else {
             // show in foot
             float footSize = 3.28084f;
-            altitudeText.setText(altitudeTextFt + decimalFormat.format(gpsAlt * footSize));
             altimeter.setText(decimalFormat.format(altitude * footSize));
         }
 
@@ -246,24 +203,24 @@ public class MainActivity extends AppCompatActivity {
 
     // saving editTexts contains, calls in onDestroy()
     void saveEditTextsState() {
-        preferences = getPreferences(MODE_PRIVATE);
+        preferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putFloat(SAVED_CALIBRATION, calibrator);
         editor.putFloat(SAVED_QNH, meanSeaLevelPressure);
         editor.putInt(SAVED_PRESSURE_MEASURE_CHOICE, pressureMeasureChoice);
-        editor.putBoolean(SAVED_ALTITUDE_CHOICE, altitudeChoice);
+        editor.putInt(SAVED_ALTITUDE_CHOICE, altitudeChoice);
         editor.putInt(SAVED_SPEED_CHOICE, speedChoice);
         editor.commit();
     }
 
     // load data before destroying and push it to editTexts, calls in onCreate()
     void loadEditTextsState() {
-        preferences = getPreferences(MODE_PRIVATE);
+        preferences = getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
         float cal = preferences.getFloat(SAVED_CALIBRATION, 0);
         float qnh = preferences.getFloat(SAVED_QNH, 1013.25f);
         int pressureMeasure = preferences.getInt(SAVED_PRESSURE_MEASURE_CHOICE, 2);
         int speed = preferences.getInt(SAVED_SPEED_CHOICE, 1);
-        boolean altitudeChoiceLoad = preferences.getBoolean(SAVED_ALTITUDE_CHOICE, true);
+        int altitudeChoiceLoad = preferences.getInt(SAVED_ALTITUDE_CHOICE, 1);
         calibrator = cal;
         meanSeaLevelPressure = qnh;
         pressureMeasureChoice = pressureMeasure;
@@ -275,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(sensorEventListener, pressure, SensorManager.SENSOR_DELAY_NORMAL);
+        loadEditTextsState();
     }
 
     @Override
@@ -282,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         saveEditTextsState();
         sensorManager.unregisterListener(sensorEventListener);
+        loadEditTextsState();
     }
 
     @Override
@@ -291,90 +250,75 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void onClickAltitude(View view) {
-        vibration();
-        if (altitudeChoice) {
-            altitudeChoice = false;
-        } else {
-            altitudeChoice = true;
-        }
+    public void vibration() {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void onClickCurrentPressure(View view) {
-        vibration();
-        pressureMeasureChoice++;
-        if (pressureMeasureChoice > 3)
-            pressureMeasureChoice = 1;
-    }
+    private void buttonsClick() {
+        Button minus = (Button) findViewById(R.id.minus);
+        Button plus = (Button) findViewById(R.id.plus);
+        Button settings = (Button) findViewById(R.id.buttonSettings);
+        Button GPS = (Button) findViewById(R.id.buttonGPS);
+        Button about = (Button) findViewById(R.id.buttonAbout);
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void onClickSpeed(View view) {
-        vibration();
-        speedChoice++;
-        if (speedChoice > 4)
-            speedChoice = 1;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void onClickCalibrationMinus(View view) {
-        vibration();
-        if (calibrator > -10) {
-            switch (pressureMeasureChoice) {
-                case (1):
-                    calibrator = calibrator - 0.1f;
-                    break;
-                case (2):
-                    calibrator = calibrator - 0.3386389f;
-                    break;
-                case (3):
-                    calibrator = calibrator - 1.33322f;
-                default:
-                    break;
+        minus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                minusQNH();
             }
-        }
-    }
+        });
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void onClickCalibrationPlus(View view) {
-        vibration();
-        if (calibrator < 10) {
-            switch (pressureMeasureChoice) {
-                case (1):
-                    calibrator = calibrator + 0.1f;
-                    break;
-                case (2):
-                    calibrator = calibrator + 0.3386389f;
-                    break;
-                case (3):
-                    calibrator = calibrator + 1.33322f;
-                default:
-                    break;
+        plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                plusQNH();
             }
-        }
-    }
+        });
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void onClickPlus(View view) {
-        vibration();
-        if (meanSeaLevelPressure < 1084.0f) {
-            switch (pressureMeasureChoice) {
-                case (1):
-                    meanSeaLevelPressure = meanSeaLevelPressure + 1.0f;
-                    break;
-                case (2):
-                    meanSeaLevelPressure = meanSeaLevelPressure + 0.3386389f;
-                    break;
-                case (3):
-                    meanSeaLevelPressure = meanSeaLevelPressure + 1.33322f;
-                default:
-                    break;
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSettings();
             }
-        }
+        });
+
+        GPS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToGPS_Data();
+            }
+        });
+
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToAbout();
+            }
+        });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void onClickMinus(View view) {
+    private void goToSettings() {
+        vibration();
+        Intent intent = new Intent(this, BarometerSetting.class);
+        startActivity(intent);
+    }
+
+    private void goToGPS_Data() {
+        vibration();
+        Intent intent = new Intent(this, GPS_Data.class);
+        intent.putExtra("Altitude", altitudeChoice);
+        intent.putExtra("Speed", speedChoice);
+        startActivity(intent);
+    }
+
+    private void goToAbout() {
+        vibration();
+        Intent intent = new Intent(this, About.class);
+        startActivity(intent);
+    }
+
+    private void minusQNH() {
         vibration();
         if (meanSeaLevelPressure > 948.0f) {
             switch (pressureMeasureChoice) {
@@ -392,31 +336,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void vibration() {
-        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK));
-    }
-
-    public void goToBarometer() {
+    private void plusQNH() {
         vibration();
-        Intent intent = new Intent(this, BarometerSetting.class);
-        // add push settings
-        intent.putExtra("calibration", calibrator);
-        startActivity(intent);
-    }
-
-    public void goToGPS_Data() {
-        vibration();
-        Intent intent = new Intent(this, GPS_Data.class);
-        // add push settings
-        startActivity(intent);
-    }
-
-    public void goToAbout() {
-        vibration();
-        Intent intent = new Intent(this, About.class);
-        startActivity(intent);
+        if (meanSeaLevelPressure < 1084.0f) {
+            switch (pressureMeasureChoice) {
+                case (1):
+                    meanSeaLevelPressure = meanSeaLevelPressure + 1.0f;
+                    break;
+                case (2):
+                    meanSeaLevelPressure = meanSeaLevelPressure + 0.3386389f;
+                    break;
+                case (3):
+                    meanSeaLevelPressure = meanSeaLevelPressure + 1.33322f;
+                default:
+                    break;
+            }
+        }
     }
 
 }

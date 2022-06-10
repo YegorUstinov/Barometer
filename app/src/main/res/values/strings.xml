@@ -10,10 +10,12 @@
     <string name="meterText">m</string>
     <string name="calibrationMinus">-</string>
     <string name="calibrationPlus">+</string>
+    <string name="calibration">Barometer calibration</string>
 
     <string name="Barometer_hPa">Barometer, hPa</string>
     <string name="Barometer_inHg">Barometer, in Hg</string>
     <string name="Barometer_mmHg">Barometer, mm Hg</string>
+
 
     <string name="QNH_hPa">QNH, hPa</string>
     <string name="QNH_inHg">QNH, in Hg</string>
@@ -28,8 +30,25 @@
     <string name="Speed_mach">Speed, mach</string>
     <string name="title_activity_gps_data">GPS_Data</string>
 
-    <string name="GPS_Data">GPS</string>
+    // settings
+    <string name="pressureUnit">Pressure</string>
+    <string name="hPa">hPa</string>
+    <string name="inHg">inch Hg</string>
+    <string name="mmHg">mm Hg</string>
+
+    <string name="altitudeUnit">Altitude</string>
+    <string name="ft">feet</string>
+    <string name="meter">meters</string>
+
+    <string name="speedUnit">Speed</string>
+    <string name="kmh">km/h</string>
+    <string name="mph">mph</string>
+    <string name="knot">knots</string>
+    <string name="mach">mach</string>
+
+    <string name="Settings">Settings</string>
+    <string name="GPS_Data">GPS Data</string>
     <string name="about">About</string>
-    <string name="about_text">This app is a barometric altimeter, barometer and GPS speedometer.\n\nVisit: <a href="https://aviationweather.gov/metar/data">aviationweather.gov</a> to get QNH, use <a href="https://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport code</a>.\n\nDeveloper: Yegor Ustinov (__yegoru__).\nVersion: 1.0</string>
+    <string name="about_text">This app is a Barometric Altimeter, Barometer and Speedometer.\n\nVisit: <a href="https://aviationweather.gov/metar/data">aviationweather.gov</a> to get QNH, use <a href="https://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport code</a>.\n\nDeveloper: Yegor Ustinov (__yegoru__).\nVersion: 1.0</string>
 
 </resources>

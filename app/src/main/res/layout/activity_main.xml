@@ -8,70 +8,6 @@
     tools:context=".MainActivity">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/baroText"
-        app:layout_constraintStart_toStartOf="@+id/baroText"
-        app:layout_constraintTop_toBottomOf="@+id/baroText"
-        app:layout_constraintVertical_bias="0.0">
-
-        <Button
-            android:id="@+id/calibrationMinus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:longClickable="true"
-            android:maxLines="1"
-            android:onClick="onClickCalibrationMinus"
-            android:shadowColor="@android:color/holo_blue_dark"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="10"
-            android:text="@string/calibrationMinus"
-            android:textAlignment="center"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/calibrationPlus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:longClickable="true"
-            android:maxLines="1"
-            android:onClick="onClickCalibrationPlus"
-            android:shadowColor="@android:color/holo_blue_dark"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="10"
-            android:text="@string/calibrationPlus"
-            android:textAlignment="center"
-            android:textSize="24sp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/barometerCalibration"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:maxLines="1"
-        android:shadowColor="@android:color/holo_blue_dark"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="10"
-        android:text="@string/null_str"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.0" />
-
     <TextView
         android:id="@+id/speed"
         android:layout_width="0dp"
@@ -79,7 +15,6 @@
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:maxLines="1"
-        android:onClick="onClickSpeed"
         android:shadowColor="@android:color/holo_green_dark"
         android:shadowDx="0"
         android:shadowDy="0"
@@ -88,58 +23,9 @@
         android:textAlignment="center"
         android:textSize="60sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/speedText"
         app:layout_constraintStart_toStartOf="@+id/speedText"
         app:layout_constraintTop_toBottomOf="@+id/speedText"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="DuplicateSpeakableTextCheck" />
-
-
-    <TextView
-        android:id="@+id/baroText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="sans-serif"
-        android:shadowColor="@android:color/holo_blue_dark"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="10"
-        android:text="@string/pressure"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
-
-
-    <TextView
-        android:id="@+id/currentPressure"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif"
-        android:minHeight="48dp"
-        android:onClick="onClickCurrentPressure"
-        android:shadowColor="@android:color/holo_blue_dark"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="10"
-        android:text="@string/null_str"
-        android:textAlignment="center"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/barometerCalibration"
-        app:layout_constraintStart_toStartOf="@+id/barometerCalibration"
-        app:layout_constraintTop_toBottomOf="@+id/barometerCalibration"
-        app:layout_constraintVertical_bias="0.0"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
 
@@ -147,7 +33,9 @@
         android:id="@+id/altitudeText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
         android:shadowColor="@android:color/holo_red_dark"
         android:shadowDx="0"
@@ -157,11 +45,9 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/setQNH"
-        app:layout_constraintStart_toStartOf="@+id/setQNH"
-        app:layout_constraintTop_toBottomOf="@+id/setQNH"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/speedText"
@@ -177,11 +63,9 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/altitudeText"
-        app:layout_constraintStart_toStartOf="@+id/altitudeText"
-        app:layout_constraintTop_toBottomOf="@+id/altimeter"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="@+id/altimeter"
+        app:layout_constraintStart_toStartOf="@+id/altimeter"
+        app:layout_constraintTop_toBottomOf="@+id/altimeter" />
 
     <TextView
         android:id="@+id/altimeter"
@@ -190,7 +74,6 @@
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:maxLines="1"
-        android:onClick="onClickAltitude"
         android:shadowColor="@android:color/holo_red_dark"
         android:shadowDx="0"
         android:shadowDy="0"
@@ -199,18 +82,16 @@
         android:textAlignment="center"
         android:textSize="60sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/altitudeText"
         app:layout_constraintStart_toStartOf="@+id/altitudeText"
         app:layout_constraintTop_toBottomOf="@+id/altitudeText"
-        app:layout_constraintVertical_bias="0.0"
         tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
     <TextView
         android:id="@+id/qnhText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:shadowColor="@android:color/holo_orange_light"
         android:shadowDx="0"
@@ -220,11 +101,9 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/currentPressure"
-        app:layout_constraintStart_toStartOf="@+id/currentPressure"
-        app:layout_constraintTop_toBottomOf="@+id/currentPressure"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toEndOf="@+id/speed"
+        app:layout_constraintStart_toStartOf="@+id/speed"
+        app:layout_constraintTop_toBottomOf="@+id/speed" />
 
     <TextView
         android:id="@+id/setQNH"
@@ -239,11 +118,9 @@
         android:text="@string/null_str"
         android:textAlignment="center"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout5"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/qnhText"
+        app:layout_constraintStart_toStartOf="@+id/qnhText"
+        app:layout_constraintTop_toBottomOf="@+id/qnhText"
         tools:ignore="TextContrastCheck">
 
     </TextView>
@@ -254,11 +131,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/qnhText"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintEnd_toEndOf="@+id/setQNH"
+        app:layout_constraintStart_toStartOf="@+id/setQNH"
+        app:layout_constraintTop_toBottomOf="@+id/setQNH">
 
         <Button
             android:id="@+id/minus"
@@ -267,11 +142,6 @@
             android:layout_weight="1"
             android:longClickable="true"
             android:maxLines="1"
-            android:onClick="onClickMinus"
-            android:shadowColor="@android:color/holo_orange_light"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="10"
             android:text="@string/calibrationMinus"
             android:textAlignment="center"
             android:textSize="24sp" />
@@ -283,14 +153,40 @@
             android:layout_weight="1"
             android:longClickable="true"
             android:maxLines="1"
-            android:onClick="onClickPlus"
-            android:shadowColor="@android:color/holo_orange_light"
-            android:shadowDx="0"
-            android:shadowDy="0"
-            android:shadowRadius="10"
             android:text="@string/calibrationPlus"
             android:textAlignment="center"
             android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+        <Button
+            android:id="@+id/buttonSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/Settings" />
+
+        <Button
+            android:id="@+id/buttonGPS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/GPS_Data" />
+
+        <Button
+            android:id="@+id/buttonAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/about" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
