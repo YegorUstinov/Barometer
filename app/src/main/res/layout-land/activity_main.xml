@@ -163,10 +163,6 @@
                         android:layout_weight="1"
                         android:longClickable="true"
                         android:maxLines="1"
-                        android:shadowColor="@android:color/holo_orange_light"
-                        android:shadowDx="0"
-                        android:shadowDy="0"
-                        android:shadowRadius="10"
                         android:text="@string/calibrationMinus"
                         android:textAlignment="center"
                         android:textSize="24sp" />
@@ -178,10 +174,6 @@
                         android:layout_weight="1"
                         android:longClickable="true"
                         android:maxLines="1"
-                        android:shadowColor="@android:color/holo_orange_light"
-                        android:shadowDx="0"
-                        android:shadowDy="0"
-                        android:shadowRadius="10"
                         android:text="@string/calibrationPlus"
                         android:textAlignment="center"
                         android:textSize="24sp" />

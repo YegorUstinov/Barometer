@@ -49,6 +49,6 @@
     <string name="Settings">Settings</string>
     <string name="GPS_Data">GPS Data</string>
     <string name="about">About</string>
-    <string name="about_text">This app is a Barometric Altimeter, Barometer and Speedometer.\n\nVisit: <a href="https://aviationweather.gov/metar/data">aviationweather.gov</a> to get QNH, use <a href="https://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport code</a>.\n\nDeveloper: Yegor Ustinov (__yegoru__).\nVersion: 1.0</string>
+    <string name="about_text">This app is a Barometric Altimeter, Barometer and Speedometer.\n\nVisit: <a href="https://aviationweather.gov/metar/data">aviationweather.gov</a> to get QNH, use <a href="https://en.wikipedia.org/wiki/ICAO_airport_code">ICAO airport code</a>.\n\nDeveloper:\nYegor __yegoru__ Ustinov.\n\nVersion: 1.0</string>
 
 </resources>

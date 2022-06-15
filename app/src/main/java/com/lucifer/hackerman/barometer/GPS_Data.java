@@ -33,7 +33,7 @@ public class GPS_Data extends AppCompatActivity {
         speedChoice = intent.getIntExtra("Speed", 1);
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
         }
@@ -66,7 +66,7 @@ public class GPS_Data extends AppCompatActivity {
     };
 
     DecimalFormat decimalFormat = new DecimalFormat("###.#");
-    DecimalFormat df_coordinates = new DecimalFormat("##.########°");
+    DecimalFormat df_coordinates = new DecimalFormat("###.000000°");
     DecimalFormat machFormat = new DecimalFormat(".000");
     DecimalFormat feetFormat = new DecimalFormat("######");
 
@@ -140,7 +140,7 @@ public class GPS_Data extends AppCompatActivity {
                     "E " + df_coordinates.format(longitude) + "\n" +
                     "Accuracy: " + accuracyStr + measureUnitAltitude + "\n\n" +
                     "Bearing: " + decimalFormat.format(bearing) + "°\n" +
-                    "Bearing Accuracy: " + bearingAccuracy + "°\n\n" +
+                    "Bearing Accuracy: " + decimalFormat.format(bearingAccuracy) + "°\n\n" +
                     "Altitude: " + altitudeStr + measureUnitAltitude + "\n" +
                     "Altitude Accuracy: " + altitudeAccuracyStr + measureUnitAltitude + "\n\n" +
                     "Speed: " + speedStr + measureUnitSpeed + "\n" +
