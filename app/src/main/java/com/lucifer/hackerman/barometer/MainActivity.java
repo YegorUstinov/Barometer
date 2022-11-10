@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences preferences;
 
     TextView setQNH;
-    TextView mBars;
+    //TextView mBars;
 
     DecimalFormat decimalFormat = new DecimalFormat("####");
     DecimalFormat df_withDecimal = new DecimalFormat("#0.00");
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
-        mBars = (TextView) findViewById(R.id.currentPressureTV);
+        //mBars = (TextView) findViewById(R.id.currentPressureTV);
         setQNH = (TextView) findViewById(R.id.setQNH);
         loadEditTextsState();
 

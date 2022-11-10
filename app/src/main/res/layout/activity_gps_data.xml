@@ -10,6 +10,7 @@
         android:id="@+id/gps_data"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="serif-monospace"
         android:text="@string/GPS_Data"
         android:textAlignment="center"
         android:textSize="34sp"
@@ -41,8 +42,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:fontFamily="serif-monospace"
                 android:text="@string/null_str"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif"
+        android:fontFamily="serif-monospace"
         android:shadowRadius="10"
         android:text="@string/Settings"
         android:textAlignment="center"
@@ -39,7 +39,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/groups"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -55,6 +54,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/speedUnit"
                         android:textAlignment="center"
                         android:textSize="16sp" />
@@ -63,6 +63,7 @@
                         android:id="@+id/radioKilometers"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/kmh"
                         tools:ignore="TouchTargetSizeCheck" />
 
@@ -70,6 +71,7 @@
                         android:id="@+id/radioMiles"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/mph"
                         tools:ignore="TouchTargetSizeCheck" />
 
@@ -77,6 +79,7 @@
                         android:id="@+id/radioKnots"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/knot"
                         tools:ignore="TouchTargetSizeCheck" />
 
@@ -84,6 +87,7 @@
                         android:id="@+id/radioMach"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/mach"
                         tools:ignore="TouchTargetSizeCheck" />
                 </RadioGroup>
@@ -98,6 +102,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/altitudeUnit"
                         android:textAlignment="center"
                         android:textSize="16sp" />
@@ -106,6 +111,7 @@
                         android:id="@+id/radioMeter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/meter"
                         tools:ignore="TouchTargetSizeCheck" />
 
@@ -113,6 +119,7 @@
                         android:id="@+id/radioFeet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/ft"
                         tools:ignore="TouchTargetSizeCheck" />
                 </RadioGroup>
@@ -127,6 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/pressureUnit"
                         android:textAlignment="center"
                         android:textSize="16sp" />
@@ -135,6 +143,7 @@
                         android:id="@+id/radioButton_hPa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/hPa"
                         tools:ignore="TouchTargetSizeCheck" />
 
@@ -142,6 +151,7 @@
                         android:id="@+id/radioButton_inHg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/inHg"
                         tools:ignore="TouchTargetSizeCheck" />
 
@@ -149,16 +159,17 @@
                         android:id="@+id/radioButton_mmHg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="serif-monospace"
                         android:text="@string/mmHg"
                         tools:ignore="TouchTargetSizeCheck" />
                 </RadioGroup>
             </LinearLayout>
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:fontFamily="serif-monospace"
                 android:text="@string/pressure"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -167,7 +178,7 @@
                 android:id="@+id/currentPressureTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                android:fontFamily="serif-monospace"
                 android:minHeight="48dp"
                 android:text="@string/null_str"
                 android:textAlignment="center"
@@ -176,9 +187,9 @@
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
             <TextView
-                android:id="@+id/textView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace"
                 android:text="@string/calibration"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -188,6 +199,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="serif-monospace"
                 android:maxLines="1"
                 android:shadowDx="0"
                 android:shadowDy="0"
@@ -197,7 +209,6 @@
                 android:textSize="24sp" />
 
             <LinearLayout
-                android:id="@+id/linearLayout6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -207,6 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
+                    android:fontFamily="serif-monospace"
                     android:longClickable="true"
                     android:maxLines="1"
                     android:text="@string/calibrationMinus"
@@ -218,6 +230,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
+                    android:fontFamily="serif-monospace"
                     android:longClickable="true"
                     android:maxLines="1"
                     android:text="@string/calibrationPlus"

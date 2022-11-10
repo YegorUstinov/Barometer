@@ -76,75 +76,57 @@ public class GPS_Data extends AppCompatActivity {
             double longitude = location.getLongitude();
             float accuracy = location.getAccuracy();
             float bearing = location.getBearing();
-            float bearingAccuracy = location.getBearingAccuracyDegrees();
             double altitude = location.getAltitude();
-            float altitudeAccuracy = location.getVerticalAccuracyMeters();
             float speed = location.getSpeed();
-            float speedAccuracy = location.getSpeedAccuracyMetersPerSecond();
 
             String measureUnitAltitude;
             String measureUnitSpeed = "";
             String altitudeStr = "";
-            String altitudeAccuracyStr = "";
             String accuracyStr = "";
             if (altitudeChoice != 1) {
                 altitude = altitude * 3.28084;
-                altitudeAccuracy = (float) (altitudeAccuracy * 3.28084);
                 accuracy = (float) (accuracy * 3.28084);
                 altitudeStr = feetFormat.format(altitude);
-                altitudeAccuracyStr = feetFormat.format(altitudeAccuracy);
                 accuracyStr = feetFormat.format(accuracy);
                 measureUnitAltitude = " ft";
             } else {
                 altitudeStr = decimalFormat.format(altitude);
-                altitudeAccuracyStr = decimalFormat.format(altitudeAccuracy);
                 accuracyStr = decimalFormat.format(accuracy);
                 measureUnitAltitude = " m";
             }
             String speedStr = "";
-            String speedAccuracyStr = "";
             switch (speedChoice) {
                 case 1:
                     speed = (float) (speed * 3.6); // km/h
-                    speedAccuracy = (float) (speedAccuracy * 3.6);
                     speedStr = decimalFormat.format(speed);
-                    speedAccuracyStr = decimalFormat.format(speedAccuracy);
                     measureUnitSpeed = " km/h";
                     break;
                 case 2:
                     speed = (float) (speed * 2.23694); // mph
-                    speedAccuracy = (float) (speedAccuracy * 2.23694);
                     speedStr = decimalFormat.format(speed);
-                    speedAccuracyStr = decimalFormat.format(speedAccuracy);
                     measureUnitSpeed = " mph";
                     break;
                 case 3:
                     speed = (float) (speed * 1.94384); // knots
-                    speedAccuracy = (float) (speedAccuracy * 1.94384);
                     speedStr = decimalFormat.format(speed);
-                    speedAccuracyStr = decimalFormat.format(speedAccuracy);
                     measureUnitSpeed = " knots";
                     break;
                 case 4:
                     speed = (float) (speed * 0.00291545); // mach
-                    speedAccuracy = (float) (speedAccuracy * 0.00291545);
                     speedStr = machFormat.format(speed);
-                    speedAccuracyStr = machFormat.format(speedAccuracy);
                     measureUnitSpeed = " mach";
                     break;
                 default:
                     break;
             }
 
-            gpsData = "N " + df_coordinates.format(latitude) + "\n" +
-                    "E " + df_coordinates.format(longitude) + "\n" +
-                    "Accuracy: " + accuracyStr + measureUnitAltitude + "\n\n" +
-                    "Bearing: " + decimalFormat.format(bearing) + "°\n" +
-                    "Bearing Accuracy: " + decimalFormat.format(bearingAccuracy) + "°\n\n" +
-                    "Altitude: " + altitudeStr + measureUnitAltitude + "\n" +
-                    "Altitude Accuracy: " + altitudeAccuracyStr + measureUnitAltitude + "\n\n" +
-                    "Speed: " + speedStr + measureUnitSpeed + "\n" +
-                    "Speed Accuracy: " + speedAccuracyStr + measureUnitSpeed;
+            gpsData =
+                    "Lat: " + df_coordinates.format(latitude) + "\n" +
+                            "Lon: " + df_coordinates.format(longitude) + "\n" +
+                            "Accuracy: " + accuracyStr + measureUnitAltitude + "\n\n" +
+                            "Bearing: " + decimalFormat.format(bearing) + "°\n\n" +
+                            "Altitude: " + altitudeStr + measureUnitAltitude + "\n\n" +
+                            "Speed: " + speedStr + measureUnitSpeed;
             dataTextView = (TextView) findViewById(R.id.dataTextView);
             dataTextView.setText(gpsData);
         }
