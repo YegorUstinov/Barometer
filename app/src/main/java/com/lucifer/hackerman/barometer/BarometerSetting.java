@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -98,9 +99,7 @@ public class BarometerSetting extends AppCompatActivity {
         // speed
         changeSpeedSettings();
 
-        clickMinus();
-        clickPlus();
-
+        buttonsClick();
     }
 
     private final SensorEventListener sensorEventListener = new SensorEventListener() {
@@ -305,51 +304,136 @@ public class BarometerSetting extends AppCompatActivity {
         });
     }
 
-    private void clickMinus() {
-        minus = (Button) findViewById(R.id.calibrationMinusSetting);
-        minus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                vibration();
-                if (calibrator > -10) {
-                    switch (pressureMeasureChoice) {
-                        case (1):
-                            calibrator = calibrator - 0.1f;
-                            break;
-                        case (2):
-                            calibrator = calibrator - 0.3386389f;
-                            break;
-                        case (3):
-                            calibrator = calibrator - 0.133322f;
-                        default:
-                            break;
+    // incrementing
+    private boolean continueIncrementing = false;
+    private int sleepTime = 100;
+
+    // minus
+    private void startIncrmentingMinus() {
+        continueIncrementing = true;
+        new Thread(new Runnable() {
+            public void run() {
+                while (continueIncrementing) {
+                    clickMinus();
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
+            }
+        }).start();
+    }
+
+    private void stopIncrmentingMinus() {
+        continueIncrementing = false;
+    }
+
+    // plus
+    private void startIncrmentingPlus() {
+        continueIncrementing = true;
+        new Thread(new Runnable() {
+            public void run() {
+                while (continueIncrementing) {
+                    clickPlus();
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void stopIncrmentingPlus() {
+        continueIncrementing = false;
+    }
+
+    private void buttonsClick() {
+        minus = (Button) findViewById(R.id.calibrationMinusSetting);
+        plus = (Button) findViewById(R.id.calibrationPlusSetting);
+
+        minus.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        vibration();
+                        clickMinus();
+                        minus.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                vibration();
+                                startIncrmentingMinus();
+                                return false;
+                            }
+                        });
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        stopIncrmentingMinus();
+                        break;
+                }
+                return false;
+            }
+        });
+
+        plus.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        vibration();
+                        clickPlus();
+                        plus.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                vibration();
+                                startIncrmentingPlus();
+                                return false;
+                            }
+                        });
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        stopIncrmentingPlus();
+                        break;
+                }
+                return false;
             }
         });
     }
 
-    private void clickPlus() {
-        plus = (Button) findViewById(R.id.calibrationPlusSetting);
-        plus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                vibration();
-                if (calibrator < 10) {
-                    switch (pressureMeasureChoice) {
-                        case (1):
-                            calibrator = calibrator + 0.1f;
-                            break;
-                        case (2):
-                            calibrator = calibrator + 0.3386389f;
-                            break;
-                        case (3):
-                            calibrator = calibrator + 0.133322f;
-                        default:
-                            break;
-                    }
-                }
+    private void clickMinus() {
+        if (calibrator > -10) {
+            switch (pressureMeasureChoice) {
+                case (1):
+                    calibrator = calibrator - 0.1f;
+                    break;
+                case (2):
+                    calibrator = calibrator - 0.3386389f;
+                    break;
+                case (3):
+                    calibrator = calibrator - 0.133322f;
+                default:
+                    break;
             }
-        });
+        }
+    }
+
+    private void clickPlus() {
+        if (calibrator < 10) {
+            switch (pressureMeasureChoice) {
+                case (1):
+                    calibrator = calibrator + 0.1f;
+                    break;
+                case (2):
+                    calibrator = calibrator + 0.3386389f;
+                    break;
+                case (3):
+                    calibrator = calibrator + 0.133322f;
+                default:
+                    break;
+            }
+        }
     }
 }

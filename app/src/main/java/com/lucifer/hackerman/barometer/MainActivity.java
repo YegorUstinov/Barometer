@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences preferences;
 
     TextView setQNH;
-    //TextView mBars;
 
     DecimalFormat decimalFormat = new DecimalFormat("####");
     DecimalFormat df_withDecimal = new DecimalFormat("#0.00");
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         pressure = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
-        //mBars = (TextView) findViewById(R.id.currentPressureTV);
         setQNH = (TextView) findViewById(R.id.setQNH);
         loadEditTextsState();
 
@@ -253,6 +252,53 @@ public class MainActivity extends AppCompatActivity {
         vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK));
     }
 
+    // incrementing
+    private boolean continueIncrementing = false;
+    private int sleepTime = 100;
+
+    // minus
+    private void startIncrmentingMinus() {
+        continueIncrementing = true;
+        new Thread(new Runnable() {
+            public void run() {
+                while (continueIncrementing) {
+                    minusQNH();
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void stopIncrmentingMinus() {
+        continueIncrementing = false;
+    }
+
+    // plus
+    private void startIncrmentingPlus() {
+        continueIncrementing = true;
+        new Thread(new Runnable() {
+            public void run() {
+                while (continueIncrementing) {
+                    plusQNH();
+                    try {
+                        Thread.sleep(sleepTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+    private void stopIncrmentingPlus() {
+        continueIncrementing = false;
+    }
+
+    // button click
     private void buttonsClick() {
         Button minus = (Button) findViewById(R.id.minus);
         Button plus = (Button) findViewById(R.id.plus);
@@ -260,20 +306,57 @@ public class MainActivity extends AppCompatActivity {
         Button GPS = (Button) findViewById(R.id.buttonGPS);
         Button about = (Button) findViewById(R.id.buttonAbout);
 
-        minus.setOnClickListener(new View.OnClickListener() {
+        // minus
+        minus.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                minusQNH();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        vibration();
+                        minusQNH();
+                        minus.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                vibration();
+                                startIncrmentingMinus();
+                                return false;
+                            }
+                        });
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        stopIncrmentingMinus();
+                        break;
+                }
+                return false;
             }
         });
 
-        plus.setOnClickListener(new View.OnClickListener() {
+        // plus
+        plus.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-                plusQNH();
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        vibration();
+                        plusQNH();
+                        plus.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                vibration();
+                                startIncrmentingPlus();
+                                return false;
+                            }
+                        });
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        stopIncrmentingPlus();
+                        break;
+                }
+                return false;
             }
         });
 
+        // setting
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -281,6 +364,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // gps
         GPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -288,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // about
         about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -317,7 +402,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void minusQNH() {
-        vibration();
         if (meanSeaLevelPressure > 948.0f) {
             switch (pressureMeasureChoice) {
                 case (1):
@@ -335,7 +419,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void plusQNH() {
-        vibration();
         if (meanSeaLevelPressure < 1084.0f) {
             switch (pressureMeasureChoice) {
                 case (1):
