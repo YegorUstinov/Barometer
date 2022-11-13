@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
     private int sleepTime = 100;
 
     // minus
-    private void startIncrmentingMinus() {
+    private void startIncrementingMinus() {
         continueIncrementing = true;
         new Thread(new Runnable() {
             public void run() {
@@ -273,12 +273,8 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void stopIncrmentingMinus() {
-        continueIncrementing = false;
-    }
-
     // plus
-    private void startIncrmentingPlus() {
+    private void startIncrementingPlus() {
         continueIncrementing = true;
         new Thread(new Runnable() {
             public void run() {
@@ -294,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    private void stopIncrmentingPlus() {
+    private void stopIncrementing() {
         continueIncrementing = false;
     }
 
@@ -318,13 +314,13 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public boolean onLongClick(View v) {
                                 vibration();
-                                startIncrmentingMinus();
+                                startIncrementingMinus();
                                 return false;
                             }
                         });
                         break;
                     case MotionEvent.ACTION_UP:
-                        stopIncrmentingMinus();
+                        stopIncrementing();
                         break;
                 }
                 return false;
@@ -343,13 +339,13 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public boolean onLongClick(View v) {
                                 vibration();
-                                startIncrmentingPlus();
+                                startIncrementingPlus();
                                 return false;
                             }
                         });
                         break;
                     case MotionEvent.ACTION_UP:
-                        stopIncrmentingPlus();
+                        stopIncrementing();
                         break;
                 }
                 return false;
