@@ -115,9 +115,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSensorChanged(SensorEvent event) {
             final float alfa = 0.8f;
-            pressValue[0] = alfa * pressValue[0] + (1 - alfa) * event.values[0]; // low pass filter
-            while (pressValue[0] < 300) {
+            if (pressValue[0] < 300) {
                 pressValue[0] = event.values[0];
+            } else {
+                pressValue[0] = alfa * pressValue[0] + (1 - alfa) * event.values[0]; // low pass filter
             }
             updateLayout(pressValue);
         }

@@ -120,12 +120,12 @@ public class GPS_Data extends AppCompatActivity {
                     break;
             }
 
-            gpsData = "Lat: " + df_coordinates.format(latitude) + "\n" +
-                    "Lon: " + df_coordinates.format(longitude) + "\n" +
-                    "Accuracy: " + accuracyStr + measureUnitAltitude + "\n\n" +
-                    "Bearing: " + decimalFormat.format(bearing) + "°\n\n" +
-                    "Altitude: " + altitudeStr + measureUnitAltitude + "\n\n" +
-                    "Speed: " + speedStr + measureUnitSpeed;
+            gpsData = "Accuracy\n" + accuracyStr + measureUnitAltitude + "\n\n" +
+                    "Lat/Lon\n" + df_coordinates.format(latitude) + "\n" +
+                    df_coordinates.format(longitude) + "\n\n" +
+                    "Bearing\n" + decimalFormat.format(bearing) + "°\n\n" +
+                    "Altitude\n" + altitudeStr + measureUnitAltitude + "\n\n" +
+                    "Speed\n" + speedStr + measureUnitSpeed;
             dataTextView = (TextView) findViewById(R.id.dataTextView);
             dataTextView.setText(gpsData);
         }
